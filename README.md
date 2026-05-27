@@ -72,6 +72,38 @@ Inspired by:
 
 ---
 
+# 📸 Screenshots
+
+## 🏠 Landing Page
+
+![Landing Page](frontend/static/assets/landing.png)
+
+---
+
+## 📊 Analytics Dashboard
+
+![Analytics](frontend/static/assets/analytics.png)
+
+---
+
+## ⏳ Pomodoro Workspace
+
+![Pomodoro](frontend/static/assets/pomodoro.png)
+
+---
+
+## ✅ Task Manager
+
+![Tasks](frontend/static/assets/tasks.png)
+
+---
+
+## 📝 Notes Workspace
+
+![Notes](frontend/static/assets/notes.png)
+
+---
+
 # 🛠️ Tech Stack
 
 ## Frontend
