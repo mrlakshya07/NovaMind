@@ -1,0 +1,26 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+
+# VS Code settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Pytest cache
+.pytest_cache/
+
+# Python environment
+.python-version
+
+# Matplotlib cache
+.matplotlib/

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero reveal">
+    <div class="hero-left">
+        <div class="hero-badge">Built for focused students</div>
+        <h1>Study with clarity.<br>Stay consistent.<br>Improve daily.</h1>
+        <p>NovaMind combines focus sessions, study tracking, note management, and productivity tools into one calm digital workspace.</p>
+        <div class="hero-buttons">
+            <button class="primary-btn" onclick="location.href='/notes'">Open Workspace</button>
+            <button class="secondary-btn" onclick="location.href='/progress'">Explore Analytics</button>
+        </div>
+    </div>
+
+    <div class="app-preview reveal">
+        <div class="preview-top">
+            <div class="dots">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="search"></div>
+        </div>
+        <div class="preview-content">
+            <div class="mini-sidebar">
+                <div class="mini-icon active"><i class='bx bxs-dashboard'></i></div>
+                <div class="mini-icon"><i class='bx bx-note'></i></div>
+                <div class="mini-icon"><i class='bx bx-task'></i></div>
+                <div class="mini-icon"><i class='bx bx-timer'></i></div>
+            </div>
+            <div class="preview-main">
+                <div class="preview-header">
+                    <div>
+                        <h3>Good evening, Learner</h3>
+                        <p>Wednesday • 10:42 PM</p>
+                    </div>
+                    <div class="session-status">● Deep Focus Active</div>
+                </div>
+                <div class="stats-grid">
+                    <div class="card">
+                        <div class="card-title">Deep Work This Week</div>
+                        <div class="big-stat">24.8h</div>
+                        <div class="small-text">+3.2h from last week</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Current Study Streak</div>
+                        <div class="big-stat">12 days</div>
+                        <div class="small-text">You're staying consistent</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2 class="section-title reveal">What NovaMind helps you do</h2>
+    <div class="feature-grid reveal">
+        <div class="card small-card">
+            <i class='bx bx-note'></i>
+            <h3>Smart Notes</h3>
+            <p>Save and search your study notes instantly, then continue from where you left off.</p>
+        </div>
+        <div class="card small-card">
+            <i class='bx bx-task'></i>
+            <h3>Task Management</h3>
+            <p>Create, mark complete, and delete tasks to keep your study checklist on track.</p>
+        </div>
+        <div class="card small-card">
+            <i class='bx bx-timer'></i>
+            <h3>Pomodoro Focus</h3>
+            <p>Start a focus timer and track real study sessions without leaving the app.</p>
+        </div>
+        <div class="card small-card">
+            <i class='bx bx-bar-chart-alt-2'></i>
+            <h3>Study Analytics</h3>
+            <p>Log your study hours and visualize progress with a clean weekly chart.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

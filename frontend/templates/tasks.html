@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaMind — Tasks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/animations.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <nav>
+        <div class="logo">Nova<span>Mind</span></div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/notes">Notes</a>
+            <a href="/tasks">Tasks</a>
+            <a href="/pomodoro">Focus</a>
+            <a href="/progress">Analytics</a>
+        </div>
+        <button class="nav-btn" onclick="location.href='/tasks'">Workspace</button>
+    </nav>
+    <section class="section-panel reveal">
+        <div class="section-header">
+            <div>
+                <h2>Task Studio</h2>
+                <p>Capture your next study actions and move through them with clarity.</p>
+            </div>
+        </div>
+        <div class="panel form-panel">
+            <form id="task-form" class="form-grid">
+                <input type="text" id="task-input" placeholder="Create a new study task" required />
+                <button class="primary-btn" type="submit">Add Task</button>
+            </form>
+        </div>
+        <div id="task-message" class="message-card hidden"></div>
+        <div class="panel">
+            <h3>Task List</h3>
+            <ul id="task-list" class="note-list"></ul>
+        </div>
+    </section>
+    <script src="/static/main.js"></script>
+</body>
+</html>

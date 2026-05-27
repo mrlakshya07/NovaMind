@@ -1,0 +1,51 @@
+.cursor {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(157, 125, 255, 0.78);
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    mix-blend-mode: screen;
+    filter: blur(2px);
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 0 0 0 rgba(157, 125, 255, 0.38);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        box-shadow: 0 0 0 22px rgba(157, 125, 255, 0.02);
+    }
+}
+
+@keyframes floatCard {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.app-preview {
+    animation: floatCard 10s ease-in-out infinite;
+}

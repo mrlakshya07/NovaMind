@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-panel reveal">
+    <div class="section-header">
+        <h2>Study Analytics</h2>
+        <p>Review your study sessions and average focus time.</p>
+    </div>
+
+    <div class="panel">
+        {% if plot_url %}
+        <div class="chart-container">
+            <img src="data:image/png;base64,{{ plot_url }}" alt="Study analytics chart" />
+        </div>
+        {% else %}
+        <p class="empty-state">No study data yet. Log a study session to see analytics here.</p>
+        {% endif %}
+    </div>
+
+    <div class="panel history-panel">
+        <div class="history-card">
+            <h3>Session History</h3>
+            <pre>{{ history }}</pre>
+        </div>
+    </div>
+
+    <div class="section-actions">
+        <a class="primary-btn" href="/progress/log">Log New Session</a>
+    </div>
+</section>
+{% endblock %}

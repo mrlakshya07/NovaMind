@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaMind — Digital Study Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/animations.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <nav>
+        <div class="logo">Nova<span>Mind</span></div>
+        <div class="nav-links">
+            <a href="/notes">Workspace</a>
+            <a href="/pomodoro">Focus Mode</a>
+            <a href="/progress">Analytics</a>
+            <a href="/tasks">Tasks</a>
+            <button class="nav-btn" onclick="location.href='/notes'">Start Session</button>
+        </div>
+    </nav>
+    <section class="hero">
+        <div class="hero-left reveal">
+            <div class="hero-badge">Designed for intentional study</div>
+            <h1>Turn every session into progress.<br>Keep your momentum real.<br>Focus with purpose.</h1>
+            <p>NovaMind blends quick note capture, a distraction-free task flow, and meaningful progress visuals so your study time feels crafted, not cluttered.</p>
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="location.href='/notes'">Enter Study Room</button>
+                <button class="secondary-btn" onclick="location.href='/progress'">View Progress</button>
+            </div>
+        </div>
+        <div class="app-preview reveal">
+            <div class="preview-top">
+                <div class="dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="search"></div>
+            </div>
+            <div class="preview-content">
+                <div class="mini-sidebar">
+                    <div class="mini-icon active"><i class='bx bxs-dashboard'></i></div>
+                    <div class="mini-icon"><i class='bx bx-note'></i></div>
+                    <div class="mini-icon"><i class='bx bx-task'></i></div>
+                    <div class="mini-icon"><i class='bx bx-timer'></i></div>
+                </div>
+                <div class="preview-main">
+                    <div class="preview-header">
+                        <div>
+                            <h3>Focus on what matters</h3>
+                            <p>Wednesday • 10:42 PM</p>
+                        </div>
+                        <div class="session-status">● Deep work mode</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="card">
+                            <div class="card-title">Deep Work This Week</div>
+                            <div class="big-stat">24.8h</div>
+                            <div class="small-text">+3.2h from last week</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Current Study Streak</div>
+                            <div class="big-stat">12 days</div>
+                            <div class="small-text">You're staying consistent</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="features reveal">
+        <h2 class="section-title">Focus tools that actually help</h2>
+        <div class="feature-grid">
+            <div class="card small-card">
+                <i class='bx bx-note'></i>
+                <h3>Fast Notes</h3>
+                <p>Capture ideas instantly and keep your study thoughts organized.</p>
+            </div>
+            <div class="card small-card">
+                <i class='bx bx-task'></i>
+                <h3>Clear Tasks</h3>
+                <p>Build a purposeful task list and move through it with momentum.</p>
+            </div>
+            <div class="card small-card">
+                <i class='bx bx-timer'></i>
+                <h3>Focus Sessions</h3>
+                <p>Run clean, calm timer cycles that help you stay in the zone.</p>
+            </div>
+            <div class="card small-card">
+                <i class='bx bx-bar-chart-alt-2'></i>
+                <h3>Progress Insights</h3>
+                <p>Visualize your study habits and keep your momentum on track.</p>
+            </div>
+        </div>
+    </section>
+    <script src="/static/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaMind — Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/animations.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <nav>
+        <div class="logo">Nova<span>Mind</span></div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/notes">Notes</a>
+            <a href="/tasks">Tasks</a>
+            <a href="/pomodoro">Focus</a>
+            <a href="/progress">Analytics</a>
+        </div>
+        <button class="nav-btn" onclick="location.href='/progress'">Workspace</button>
+    </nav>
+    <section class="section-panel reveal">
+        <div class="section-header">
+            <div>
+                <h2>Study Analytics</h2>
+                <p>See your study progress in charts and session history.</p>
+            </div>
+        </div>
+        <div id="progress-message" class="message-card hidden"></div>
+        <div class="panel chart-panel reveal">
+            <h3>Average Study Time</h3>
+            <div id="chart-area" class="chart-container">
+                <p class="empty-state">Loading analytics...</p>
+            </div>
+        </div>
+        <div class="panel history-panel reveal">
+            <h3>Logged Sessions</h3>
+            <pre id="history-output" class="history-output"></pre>
+        </div>
+        <div class="section-actions">
+            <button class="primary-btn" onclick="location.href='/progress/log'">Log a Session</button>
+        </div>
+    </section>
+    <script src="/static/main.js"></script>
+</body>
+</html>

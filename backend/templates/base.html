@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaMind — Digital Study Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='animations.css') }}">
+</head>
+<body>
+    <div class="cursor"></div>
+
+    <nav>
+        <div class="logo">
+            Nova<span>Mind</span>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/notes">Notes</a>
+            <a href="/tasks">Tasks</a>
+            <a href="/pomodoro">Pomodoro</a>
+            <a href="/progress">Analytics</a>
+        </div>
+        <button class="nav-btn" onclick="location.href='/notes'">Start Studying</button>
+    </nav>
+
+    <main class="page-body">
+        {% if message %}
+        <div class="message-card {{ 'success' if success else 'warning' }}">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

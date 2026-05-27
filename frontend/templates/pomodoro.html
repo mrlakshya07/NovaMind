@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaMind — Pomodoro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/animations.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <nav>
+        <div class="logo">Nova<span>Mind</span></div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/notes">Notes</a>
+            <a href="/tasks">Tasks</a>
+            <a href="/pomodoro">Focus</a>
+            <a href="/progress">Analytics</a>
+        </div>
+        <button class="nav-btn" onclick="location.href='/pomodoro'">Workspace</button>
+    </nav>
+    <section class="section-panel reveal">
+        <div class="section-header">
+            <div>
+                <h2>Pomodoro Timer</h2>
+                <p>Run a focus session with an active countdown timer.</p>
+            </div>
+        </div>
+        <div class="panel form-panel">
+            <form id="pomodoro-form" class="form-grid">
+                <input id="minutes-input" name="minutes" type="number" min="1" placeholder="25" value="25" required />
+                <button class="primary-btn" type="submit">Start Focus</button>
+            </form>
+        </div>
+        <div id="pomodoro-message" class="message-card hidden"></div>
+        <div class="panel timer-panel reveal">
+            <span class="timer-label">Ready to start a session</span>
+            <span class="timer-value" id="timer-value">00:00</span>
+        </div>
+    </section>
+    <script src="/static/main.js"></script>
+</body>
+</html>

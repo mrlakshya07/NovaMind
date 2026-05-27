@@ -1,0 +1,43 @@
+/* =========================
+   CUSTOM CURSOR
+========================== */
+.cursor{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:rgba(139,92,246,0.7);
+    position:fixed;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    z-index:9999;
+    mix-blend-mode:screen;
+    filter:blur(2px);
+}
+
+/* =========================
+   REVEAL ANIMATION
+========================== */
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================
+   HOVER EFFECTS
+========================== */
+.card,
+.app-preview,
+button{
+    transition:0.35s ease;
+}
+
+.card:hover,
+button:hover{
+    transform:translateY(-5px);
+}

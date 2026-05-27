@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-panel reveal">
+    <div class="section-header">
+        <h2>Notes</h2>
+        <div class="page-controls">
+            <a class="control-btn" href="/notes?action=add">Add Note</a>
+            <a class="control-btn" href="/notes?action=search">Search Notes</a>
+            <a class="control-btn" href="/notes">View All</a>
+        </div>
+    </div>
+
+    {% if action == 'add' %}
+    <div class="panel">
+        <form action="/notes/add" method="post">
+            <textarea name="note" placeholder="Write your study note here..."></textarea>
+            <button type="submit" class="primary-btn">Save Note</button>
+        </form>
+    </div>
+    {% elif action == 'search' %}
+    <div class="panel">
+        <form action="/notes/search" method="post">
+            <input name="keyword" type="text" placeholder="Search notes by keyword" />
+            <button type="submit" class="primary-btn">Search</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <div class="list-panel">
+        <h3>{{ 'Search Results' if action == 'search' else 'Notes List' }}</h3>
+        {% if notes %}
+        <ul class="note-list">
+            {% for note in notes %}
+                {% if note is string %}
+                <li>
+                    <span>{{ loop.index }}. {{ note }}</span>
+                    <form action="/notes/delete" method="post" class="inline-form">
+                        <input type="hidden" name="note_num" value="{{ loop.index }}">
+                        <button type="submit" class="secondary-btn">Delete</button>
+                    </form>
+                </li>
+                {% else %}
+                <li>
+                    <span>{{ note[0] }}. {{ note[1] }}</span>
+                    <form action="/notes/delete" method="post" class="inline-form">
+                        <input type="hidden" name="note_num" value="{{ note[0] }}">
+                        <button type="submit" class="secondary-btn">Delete</button>
+                    </form>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="empty-state">No notes available yet. Add a note to get started.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

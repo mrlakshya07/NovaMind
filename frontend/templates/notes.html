@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaMind — Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/animations.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <nav>
+        <div class="logo">Nova<span>Mind</span></div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/notes">Notes</a>
+            <a href="/tasks">Tasks</a>
+            <a href="/pomodoro">Focus</a>
+            <a href="/progress">Analytics</a>
+        </div>
+        <button class="nav-btn" onclick="location.href='/notes'">Workspace</button>
+    </nav>
+    <section class="section-panel reveal">
+        <div class="section-header">
+            <div>
+                <h2>Study Notes</h2>
+                <p>Save quick notes and search through your study ideas instantly.</p>
+            </div>
+        </div>
+        <div class="panel form-panel">
+            <form id="note-form" class="form-grid">
+                <textarea name="note" id="note-input" placeholder="Type a new note..." required></textarea>
+                <button class="primary-btn" type="submit">Save Note</button>
+            </form>
+            <form id="search-form" class="form-grid">
+                <input type="text" id="search-input" placeholder="Search notes by keyword" />
+                <button class="secondary-btn" type="submit">Search</button>
+            </form>
+        </div>
+        <div id="note-message" class="message-card hidden"></div>
+        <div class="panel">
+            <h3>Your Notes</h3>
+            <ul id="note-list" class="note-list"></ul>
+        </div>
+    </section>
+    <script src="/static/main.js"></script>
+</body>
+</html>

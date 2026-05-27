@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-panel reveal">
+    <div class="section-header">
+        <h2>Log Study Session</h2>
+        <p>Record the date and number of hours you studied today.</p>
+    </div>
+
+    <div class="panel">
+        <form action="/progress/log" method="post" class="log-form">
+            <label>Date</label>
+            <input type="date" name="date" />
+            <label>Hours</label>
+            <input type="number" name="hours" min="0" step="0.25" placeholder="2" required />
+            <button type="submit" class="primary-btn">Save Session</button>
+        </form>
+    </div>
+
+    <div class="section-actions">
+        <a class="secondary-btn" href="/progress">View Analytics</a>
+    </div>
+</section>
+{% endblock %}

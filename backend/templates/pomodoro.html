@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-panel reveal">
+    <div class="section-header">
+        <h2>Pomodoro Timer</h2>
+        <p>Choose a focus length and start a session to stay productive.</p>
+    </div>
+
+    <div class="panel timer-panel">
+        <form id="pomodoro-form" action="/pomodoro/start" method="post">
+            <label>Minutes</label>
+            <input id="minutes-input" name="minutes" type="number" min="1" placeholder="25" value="25" required />
+            <button type="submit" class="primary-btn">Start Focus</button>
+        </form>
+
+        <div class="timer-display" id="timer-display">
+            <span class="timer-label">Ready to start</span>
+            <span class="timer-value">00:00</span>
+        </div>
+    </div>
+</section>
+{% endblock %}
