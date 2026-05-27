@@ -151,7 +151,7 @@ Follow these simple steps to get your development environment set up locally:
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/mrlakshya07/NovaMind.git
+git clone [https://github.com/mrlakshya07/NovaMind.git](https://github.com/mrlakshya07/NovaMind.git)
 ```
 
 ## Move Into Project
