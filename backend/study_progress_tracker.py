@@ -1,50 +1,113 @@
-﻿import os
-from datetime import datetime
+﻿from datetime import datetime
 import matplotlib.pyplot as plt
 import io
 import base64
+from supabase_client import supabase
 
-BASE_DIR = os.path.dirname(__file__)
-STUDY_LOG_FILE = os.path.join(BASE_DIR, "study_log.txt")
+def log_study_session(date_input=None, hours=None, user_id=None):
 
-def log_study_session(date_input=None, hours=None):
+    if user_id is None:
+        return {
+            "success": False,
+            "message": "User authentication required."
+        }
+
     if date_input is None or date_input == "":
         current_date = datetime.now().strftime("%Y-%m-%d")
+
     else:
         try:
             datetime.strptime(date_input, "%Y-%m-%d")
             current_date = date_input
+
         except ValueError:
-            return {"success": False, "message": "Invalid date format. Please use YYYY-MM-DD format."}
+            return {
+                "success": False,
+                "message": "Invalid date format. Please use YYYY-MM-DD format."
+            }
 
     if hours is None:
-        return {"success": False, "message": "Hours studied is required."}
+        return {
+            "success": False,
+            "message": "Hours studied is required."
+        }
 
     try:
         hours = float(hours)
+
         if hours < 0:
-            return {"success": False, "message": "Please enter a positive number."}
+            return {
+                "success": False,
+                "message": "Please enter a positive number."
+            }
+
     except ValueError:
-        return {"success": False, "message": "Invalid input. Please enter a numeric value."}
+        return {
+            "success": False,
+            "message": "Invalid input. Please enter a numeric value."
+        }
 
-    with open(STUDY_LOG_FILE, "a", encoding="utf-8") as file:
-        file.write(f"{current_date},{hours}\n")
-    return {"success": True, "message": f"Study session logged: {current_date}, {hours} hours"}
-
-
-def load_logged_data():
-    data = {}
     try:
-        with open(STUDY_LOG_FILE, "r", encoding="utf-8") as file:
-            lines = file.readlines()
-            for line in lines:
-                parts = line.strip().split(",")
-                if len(parts) == 2:
-                    date, hour = parts[0], float(parts[1])
-                    data.setdefault(date, []).append(hour)
-    except FileNotFoundError:
+
+        response = (
+            supabase
+            .table("study_sessions")
+            .insert({
+                "user_id": user_id,
+                "session_date": current_date,
+                "hours_studied": hours
+            })
+            .execute()
+        )
+
+        return {
+            "success": True,
+            "message": f"Study session logged: {current_date}"
+        }
+
+    except Exception as e:
+
+        return {
+            "success": False,
+            "message": str(e)
+        }
+
+
+def load_logged_data(user_id):
+
+    if user_id is None:
         return {}
-    return data
+
+    try:
+
+        response = (
+            supabase
+            .table("study_sessions")
+            .select("*")
+            .eq("user_id", user_id)
+            .order("session_date")
+            .execute()
+        )
+
+        rows = response.data
+
+        data = {}
+
+        for row in rows:
+
+            date = row["session_date"]
+
+            hours = float(row["hours_studied"])
+
+            data.setdefault(date, []).append(hours)
+
+        return data
+
+    except Exception as e:
+
+        print("Error loading data:", e)
+
+        return {}
 
 
 def show_all_history(data):

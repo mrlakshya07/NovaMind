@@ -1,83 +1,167 @@
-﻿import os
+﻿"""
+Task management module for NovaMind.
+Uses Supabase PostgreSQL for storage with user isolation.
+Replaces txt-file based storage.
+"""
+
 from datetime import datetime
+from supabase_client import supabase
 
-BASE_DIR = os.path.dirname(__file__)
-TASKS_FILE = os.path.join(BASE_DIR, "tasks.txt")
 
-def load_tasks():
-    tasks = []
-    try:
-        with open(TASKS_FILE, "r", encoding="utf-8") as f:
-            for idx, line in enumerate(f.readlines(), start=1):
-                line = line.strip()
-                if not line:
-                    continue
-                status = "todo"
-                if line.startswith("[done"):
-                    status = "done"
-                tasks.append({"id": idx, "raw": line, "status": status})
-    except FileNotFoundError:
+def load_tasks(user_id):
+    """
+    Load all tasks for a user from PostgreSQL.
+    
+    Args:
+        user_id: UUID of authenticated user
+        
+    Returns:
+        List of task dicts with id, title, status, created_at
+    """
+    if user_id is None:
         return []
-    return tasks
+    
+    try:
+        response = (
+            supabase
+            .table("tasks")
+            .select("*")
+            .eq("user_id", user_id)
+            .order("created_at", desc=False)
+            .execute()
+        )
+        
+        tasks = []
+        for row in response.data:
+            tasks.append({
+                "id": row["id"],
+                "title": row["title"],
+                "status": row["status"],
+                "created_at": row["created_at"]
+            })
+        return tasks
+    
+    except Exception as e:
+        print(f"Error loading tasks: {e}")
+        return []
 
 
-def add_task(task_text):
+def add_task(task_text, user_id):
+    """
+    Add a new task for a user.
+    
+    Args:
+        task_text: Task description
+        user_id: UUID of authenticated user
+        
+    Returns:
+        dict with success status and message
+    """
+    if user_id is None:
+        return {"success": False, "message": "User authentication required."}
+    
     if not task_text or not task_text.strip():
         return {"success": False, "message": "Task cannot be empty."}
-
-    with open(TASKS_FILE, "a", encoding="utf-8") as f:
-        f.write(f"[ ] {task_text.strip()}\n")
-    return {"success": True, "message": "Task added successfully."}
-
-
-def toggle_task(task_index):
+    
     try:
-        task_index = int(task_index)
-    except (TypeError, ValueError):
-        return {"success": False, "message": "Invalid task index."}
+        response = (
+            supabase
+            .table("tasks")
+            .insert({
+                "user_id": user_id,
+                "title": task_text.strip(),
+                "status": "todo",
+                "created_at": datetime.utcnow().isoformat()
+            })
+            .execute()
+        )
+        
+        return {
+            "success": True,
+            "message": "Task added successfully.",
+            "task_id": response.data[0]["id"] if response.data else None
+        }
+    
+    except Exception as e:
+        return {"success": False, "message": f"Error adding task: {str(e)}"}
 
+
+def toggle_task(task_id, user_id):
+    """
+    Toggle task status between 'todo' and 'done'.
+    
+    Args:
+        task_id: UUID of task (from PostgreSQL)
+        user_id: UUID of authenticated user
+        
+    Returns:
+        dict with success status and message
+    """
+    if user_id is None:
+        return {"success": False, "message": "User authentication required."}
+    
     try:
-        with open(TASKS_FILE, "r", encoding="utf-8") as f:
-            tasks = [line.rstrip("\n") for line in f.readlines()]
-    except FileNotFoundError:
-        return {"success": False, "message": "No tasks available."}
+        # Fetch current task
+        response = (
+            supabase
+            .table("tasks")
+            .select("status")
+            .eq("id", task_id)
+            .eq("user_id", user_id)
+            .single()
+            .execute()
+        )
+        
+        if not response.data:
+            return {"success": False, "message": "Task not found."}
+        
+        current_status = response.data["status"]
+        new_status = "done" if current_status == "todo" else "todo"
+        
+        # Update task status
+        supabase.table("tasks").update({
+            "status": new_status,
+            "updated_at": datetime.utcnow().isoformat()
+        }).eq("id", task_id).eq("user_id", user_id).execute()
+        
+        return {
+            "success": True,
+            "message": f"Task marked as {new_status}."
+        }
+    
+    except Exception as e:
+        return {"success": False, "message": f"Error toggling task: {str(e)}"}
 
-    if task_index < 1 or task_index > len(tasks):
-        return {"success": False, "message": "Task index out of range."}
 
-    current = tasks[task_index - 1]
-    if current.startswith("[ ]"):
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        tasks[task_index - 1] = current.replace("[ ]", f"[done at {timestamp}]", 1)
-    elif current.startswith("[done"):
-        rest = current[current.index("]") + 1:].strip()
-        tasks[task_index - 1] = f"[ ] {rest}"
-    else:
-        return {"success": False, "message": "Task status is not recognized."}
-
-    with open(TASKS_FILE, "w", encoding="utf-8") as f:
-        f.write("\n".join(tasks) + ("\n" if tasks else ""))
-
-    return {"success": True, "message": "Task status updated."}
-
-
-def delete_task(task_index):
+def delete_task(task_id, user_id):
+    """
+    Delete a task for a user.
+    
+    Args:
+        task_id: UUID of task (from PostgreSQL)
+        user_id: UUID of authenticated user
+        
+    Returns:
+        dict with success status and message
+    """
+    if user_id is None:
+        return {"success": False, "message": "User authentication required."}
+    
     try:
-        task_index = int(task_index)
-    except (TypeError, ValueError):
-        return {"success": False, "message": "Invalid task index."}
-
-    try:
-        with open(TASKS_FILE, "r", encoding="utf-8") as f:
-            tasks = [line.rstrip("\n") for line in f.readlines()]
-    except FileNotFoundError:
-        return {"success": False, "message": "No tasks found."}
-
-    if task_index < 1 or task_index > len(tasks):
-        return {"success": False, "message": "Task index out of range."}
-
-    removed = tasks.pop(task_index - 1)
-    with open(TASKS_FILE, "w", encoding="utf-8") as f:
-        f.write("\n".join(tasks) + ("\n" if tasks else ""))
-
-    return {"success": True, "message": f"Deleted task: {removed}"}
+        # Delete only user's task
+        response = (
+            supabase
+            .table("tasks")
+            .delete()
+            .eq("id", task_id)
+            .eq("user_id", user_id)
+            .execute()
+        )
+        
+        if not response.data or len(response.data) == 0:
+            return {"success": False, "message": "Task not found."}
+        
+        return {"success": True, "message": "Task deleted successfully."}
+    
+    except Exception as e:
+        return {"success": False, "message": f"Error deleting task: {str(e)}"}

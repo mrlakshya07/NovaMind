@@ -1,7 +1,17 @@
+"""
+Pomodoro timer and session management for NovaMind.
+Supports both real-time countdown and session persistence.
+"""
+
 from datetime import datetime, timedelta
+from supabase_client import supabase
+
 
 def start_pomodoro(minutes):
-    """Start a pomodoro timer - web version"""
+    """
+    Start a pomodoro timer - web version
+    Returns timer details for frontend countdown
+    """
     try:
         minutes = int(minutes)
         if minutes <= 0:
@@ -20,6 +30,49 @@ def start_pomodoro(minutes):
     except (ValueError, TypeError):
         return {"success": False, "message": "Invalid input. Please enter a number."}
 
+
+def save_pomodoro_session(user_id, duration_minutes):
+    """
+    Save a completed pomodoro session to the database.
+    
+    Args:
+        user_id: UUID of authenticated user
+        duration_minutes: Duration of the completed session
+        
+    Returns:
+        dict with success status and message
+    """
+    if user_id is None:
+        return {"success": False, "message": "User authentication required."}
+    
+    try:
+        duration_minutes = int(duration_minutes)
+        if duration_minutes <= 0:
+            return {"success": False, "message": "Invalid duration."}
+        
+        response = (
+            supabase
+            .table("pomodoro_sessions")
+            .insert({
+                "user_id": user_id,
+                "duration_minutes": duration_minutes,
+                "completed_at": datetime.utcnow().isoformat()
+            })
+            .execute()
+        )
+        
+        return {
+            "success": True,
+            "message": f"Pomodoro session recorded: {duration_minutes} minutes"
+        }
+    
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"Error saving session: {str(e)}"
+        }
+
+
 def get_remaining_time(end_time_str):
     """Calculate remaining time for active timer"""
     try:
@@ -34,3 +87,62 @@ def get_remaining_time(end_time_str):
         return max(0, int(remaining))
     except:
         return 0
+
+
+def get_user_pomodoro_stats(user_id):
+    """
+    Get pomodoro statistics for a user.
+    
+    Args:
+        user_id: UUID of authenticated user
+        
+    Returns:
+        dict with stats (total_sessions, total_minutes, today_sessions)
+    """
+    if user_id is None:
+        return {
+            "total_sessions": 0,
+            "total_minutes": 0,
+            "today_sessions": 0,
+            "today_minutes": 0
+        }
+    
+    try:
+        today = datetime.utcnow().strftime("%Y-%m-%d")
+        
+        # Get all user pomodoro sessions
+        response = (
+            supabase
+            .table("pomodoro_sessions")
+            .select("*")
+            .eq("user_id", user_id)
+            .execute()
+        )
+        
+        all_sessions = response.data or []
+        total_sessions = len(all_sessions)
+        total_minutes = sum(int(s["duration_minutes"]) for s in all_sessions)
+        
+        # Get today's sessions
+        today_sessions = [
+            s for s in all_sessions
+            if s["completed_at"][:10] == today
+        ]
+        today_count = len(today_sessions)
+        today_minutes = sum(int(s["duration_minutes"]) for s in today_sessions)
+        
+        return {
+            "total_sessions": total_sessions,
+            "total_minutes": total_minutes,
+            "today_sessions": today_count,
+            "today_minutes": today_minutes
+        }
+    
+    except Exception as e:
+        print(f"Error getting pomodoro stats: {e}")
+        return {
+            "total_sessions": 0,
+            "total_minutes": 0,
+            "today_sessions": 0,
+            "today_minutes": 0
+        }
