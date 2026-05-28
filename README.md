@@ -1,5 +1,6 @@
 <div align="center">
 
+<<<<<<< HEAD
 <h1>🧠 NovaMind</h1>
 <h3>Smart Study Productivity Platform</h3>
 
@@ -44,11 +45,125 @@ NovaMind transforms the traditional student productivity experience into a moder
 - 🏆 **Gamified Achievements** to keep motivation high
 
 All data is **user-specific and persisted** to Supabase (PostgreSQL), so nothing is lost between sessions.
+=======
+# 🧠 NovaMind
+### *Your Second Brain for Studying*
+
+**📚 Study smarter. • ⏳ Focus deeper. • 📈 Track consistency. • 🚀 Build unstoppable momentum.**
+
+---
+
+NovaMind is a modern productivity platform built for students who want more than just a boring notes app. It transforms studying into an immersive digital workspace combining smart notes, deep-focus Pomodoro sessions, analytics dashboards, productivity workflows, and consistency tracking into one beautiful and distraction-free experience.
+
+</div>
+
+---
+
+# ⚡ Why NovaMind Exists
+
+Most study apps feel:
+* ❌ Outdated
+* ❌ Cluttered
+* ❌ Overwhelming
+* ❌ Painfully boring
+
+NovaMind was built to feel different. Instead of creating another basic CRUD project, the goal was to build a productivity platform that actually feels motivating to use.
+
+> ### 💡 The Inspiration
+> Something that feels like a seamless combination of **Notion × Forest × Todoist × Linear**, but designed specifically for students.
+
+---
+
+# ✨ What Makes NovaMind Different?
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🎨 Modern Product Design
+* 🚀 **Startup-inspired UI/UX:** Built with modern user-flows.
+* 🧊 **Glassmorphism Interface:** Aesthetic, clean, and modern transparency.
+* 🪄 **Smooth Animations:** Fluid transitions that enhance the experience.
+* 📱 **Responsive Layouts:** Designed to adapt beautifully.
+
+</td>
+<td width="50%" valign="top">
+
+### 📊 Productivity Experience
+* 📈 **Analytics Dashboard:** Beautiful visual data tracking.
+* ⏱️ **Session Tracking:** Monitor your focus blocks perfectly.
+* 🎯 **Deep-Focus Workflows:** Minimize distractions instantly.
+* 🧠 **Consistency Insights:** Understand your study habits over time.
+
+</td>
+</tr>
+</table>
+
+### ⚙️ Built Like a Real Product
+NovaMind was designed with:
+* **Clean separation:** Structured frontend/backend boundary.
+* **Scalable architecture:** Robust Flask backend implementation.
+* **Interactive tools:** Dynamic dashboards and workflows.
+* **Immersive design:** A productivity-focused aesthetic that eliminates friction.
+
+Instead of feeling like a typical student project, the goal was to build something that feels closer to a modern startup MVP.
+
+---
+
+# 🧩 Core Features
+
+* ### 📚 Smart Notes Workspace
+  Capture, search, and organize study notes in a distraction-free environment.
+* ### ✅ Productivity Task System
+  Manage study goals, complete tasks, and stay consistent every day.
+* ### ⏳ Deep Focus Pomodoro
+  Built-in focus timer designed to encourage uninterrupted study sessions.
+* ### 📊 Study Analytics Dashboard
+  Visualize productivity trends, study sessions, and consistency insights.
+* ### 📝 Session Logging System
+  Track daily study hours and build measurable study momentum.
+
+---
+
+# 🎨 UI/UX Philosophy
+
+NovaMind focuses heavily on visual clarity, immersive workflows, smooth interactions, and modern productivity aesthetics. 
+
+Inspired by products like **Notion, Forest, Linear, Studyverse, and Todoist**, the interface was designed to feel calm, focused, and premium.
+
+---
+
+# 📸 Screenshots
+
+### 🏠 Landing Page
+![Landing Page](frontend/static/assets/landing.png)
+
+---
+
+### 📊 Analytics Dashboard
+![Analytics](frontend/static/assets/analytics.png)
+
+---
+
+### ⏳ Pomodoro Workspace
+![Pomodoro](frontend/static/assets/pomodoro.png)
+
+---
+
+### ✅ Task Manager
+![Tasks](frontend/static/assets/tasks.png)
+
+---
+
+### 📝 Notes Workspace
+![Notes](frontend/static/assets/notes.png)
+>>>>>>> aab29c83cf1a85d3a6d1d7978c7b52f0924f4275
 
 ---
 
 ## ✨ Features
 
+<<<<<<< HEAD
 ### 🔐 Authentication System
 - Email/password signup and login via **Supabase Auth**
 - JWT access tokens stored securely in **Flask server-side sessions**
@@ -84,11 +199,19 @@ All data is **user-specific and persisted** to Supabase (PostgreSQL), so nothing
 - 10 unique achievements across 4 categories
 - Automatically awarded as milestones are reached
 - Progress tracking toward next achievement unlocks
+=======
+| Layer | Technology |
+| :--- | :--- |
+| **Frontend** | `HTML5` • `CSS3` • `JavaScript` |
+| **Backend** | `Python` • `Flask` |
+| **Libraries** | `Matplotlib` • `spaCy` • `RapidFuzz` |
+>>>>>>> aab29c83cf1a85d3a6d1d7978c7b52f0924f4275
 
 ---
 
 ## 🛠️ Tech Stack
 
+<<<<<<< HEAD
 | Layer | Technology |
 |---|---|
 | **Backend Framework** | Flask (Python) |
@@ -122,6 +245,16 @@ study_buddy/
 │   ├── todolist.py                # Legacy to-do list module
 │   ├── .env                       # Environment variables (not committed)
 │   └── requirements.txt           # Backend dependencies
+=======
+```bash
+STUDY_BUDDY/
+├── backend/
+│   ├── app.py
+│   ├── notes.py
+│   ├── tasks.py
+│   ├── pomodoro.py
+│   └── study_progress_tracker.py
+>>>>>>> aab29c83cf1a85d3a6d1d7978c7b52f0924f4275
 │
 ├── frontend/
 │   ├── templates/
@@ -147,6 +280,7 @@ study_buddy/
 
 ## 🗄️ Database Schema
 
+<<<<<<< HEAD
 NovaMind uses **Supabase (PostgreSQL)** with the following tables:
 
 ### `users`
@@ -298,7 +432,11 @@ All protected endpoints require an active session (login first).
 - Git
 
 ### 1. Clone the Repository
+=======
+Follow these simple steps to get your development environment set up locally:
+>>>>>>> aab29c83cf1a85d3a6d1d7978c7b52f0924f4275
 
+### 1. Clone Repository
 ```bash
 git clone https://github.com/mrlakshya07/NovaMind.git
 cd NovaMind
@@ -349,7 +487,15 @@ python backend/app.py
 
 ### 7. Open in Browser
 
+<<<<<<< HEAD
 ```
+=======
+# 🌐 Local Server
+
+Once running, open your browser and navigate to:
+
+```txt
+>>>>>>> aab29c83cf1a85d3a6d1d7978c7b52f0924f4275
 http://127.0.0.1:5000
 ```
 
@@ -357,16 +503,31 @@ http://127.0.0.1:5000
 
 ## 🔐 Environment Variables
 
+<<<<<<< HEAD
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `SUPABASE_URL` | ✅ | Your Supabase project URL |
 | `SUPABASE_KEY` | ✅ | Supabase anon/public API key |
 | `SECRET_KEY` | ✅ | Flask session secret key (use a long random string in production) |
+=======
+We have big plans for NovaMind. Here is what is on the roadmap:
+
+- [ ] 🔐 JWT Authentication
+- [ ] 🗄️ PostgreSQL Database
+- [ ] 🤖 AI Quiz Generator
+- [ ] 🔥 Study Heatmaps
+- [ ] 👤 User Profiles
+- [ ] ☁️ Cloud Deployment
+- [ ] 📱 Mobile Responsiveness Improvements
+- [ ] 🌗 Dark/Light Theme Toggle
+- [ ] 🏆 Achievement & Streak System
+>>>>>>> aab29c83cf1a85d3a6d1d7978c7b52f0924f4275
 
 ---
 
 ## 🏆 Achievement System
 
+<<<<<<< HEAD
 NovaMind features a built-in achievement engine that automatically awards badges as users hit milestones.
 
 | Achievement | Icon | Trigger |
@@ -383,11 +544,17 @@ NovaMind features a built-in achievement engine that automatically awards badges
 | **Week Warrior** | 🔥 | Maintain a 7-day study streak |
 
 Progress toward the next achievement in each category is tracked via `/api/achievements/progress`.
+=======
+NovaMind was built to transform traditional student productivity tools into a modern, immersive study experience. 
+
+Instead of creating another basic CRUD project, the goal was to build a realistic productivity platform with a modern frontend architecture, a scalable backend structure, tight analytics integration, and a startup-inspired UI/UX.
+>>>>>>> aab29c83cf1a85d3a6d1d7978c7b52f0924f4275
 
 ---
 
 ## 🎨 UI/UX Design
 
+<<<<<<< HEAD
 NovaMind's frontend is built with a **premium glassmorphism dark theme**, drawing inspiration from tools like Notion, Linear, and Todoist.
 
 **Design Highlights:**
@@ -456,3 +623,8 @@ If you found this project useful or inspiring, please consider giving it a ⭐ �
 [![GitHub](https://img.shields.io/badge/GitHub-mrlakshya07-181717?style=for-the-badge&logo=github)](https://github.com/mrlakshya07)
 
 </div>
+=======
+Built with 💻 by **Lakshya**
+
+If you liked this project, consider starring the repository ⭐
+>>>>>>> aab29c83cf1a85d3a6d1d7978c7b52f0924f4275
