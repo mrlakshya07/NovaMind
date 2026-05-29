@@ -126,10 +126,10 @@ async function setupTasksPage() {
                       const actionLabel = task.status === "done" ? "Mark Todo" : "Mark Done";
                       return `
                         <li class="task-item ${task.status}">
-                            <span>${task.id}. ${task.raw}</span>
+                            <span>${task.title}</span>
                             <div class="task-actions">
-                                <button class="secondary-btn" data-action="toggle" data-index="${task.id}">${actionLabel}</button>
-                                <button class="secondary-btn danger" data-action="delete" data-index="${task.id}">Delete</button>
+                                <button class="secondary-btn" data-action="toggle" data-id="${task.id}">${actionLabel}</button>
+                                <button class="secondary-btn danger" data-action="delete" data-id="${task.id}">Delete</button>
                             </div>
                         </li>
                     `;
@@ -139,9 +139,9 @@ async function setupTasksPage() {
         taskList.querySelectorAll("button[data-action]").forEach((button) => {
             button.addEventListener("click", async () => {
                 const action = button.dataset.action;
-                const index = button.dataset.index;
+                const taskId = button.dataset.id;
                 const url = action === "toggle" ? "/api/tasks/toggle" : "/api/tasks/delete";
-                const result = await fetchJson(url, { task_index: index }, "POST");
+                const result = await fetchJson(url, { task_id: taskId }, "POST");
                 showMessage("task-message", result.message, result.success);
                 loadTasks();
             });

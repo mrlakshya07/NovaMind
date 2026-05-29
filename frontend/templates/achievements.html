@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaMind — Achievements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/animations.css">
+    <style>
+        /* Achievement-specific styling */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(180deg, rgba(48, 26, 16, 0.92), rgba(30, 17, 11, 0.96));
+            border: 1px solid rgba(255, 221, 191, 0.10);
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: 0 30px 80px rgba(8, 5, 3, 0.45);
+            backdrop-filter: blur(18px);
+            text-align: center;
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 155, 95, 0.28);
+            background: linear-gradient(180deg, rgba(58, 32, 18, 0.94), rgba(38, 22, 14, 0.98));
+        }
+
+        .stat-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffb06e, #ff8360);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .categories-section {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 221, 191, 0.08);
+            color: var(--text);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 22px;
+            margin-bottom: 32px;
+        }
+
+        .achievement-card {
+            background: linear-gradient(180deg, rgba(48, 26, 16, 0.85), rgba(30, 17, 11, 0.90));
+            border: 1px solid rgba(255, 221, 191, 0.10);
+            border-radius: 26px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(255, 176, 110, 0.15), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .achievement-card.unlocked {
+            border-color: rgba(255, 176, 110, 0.35);
+            background: linear-gradient(180deg, rgba(58, 32, 18, 0.94), rgba(40, 22, 14, 0.96));
+        }
+
+        .achievement-card.unlocked::before {
+            opacity: 1;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 155, 95, 0.28);
+        }
+
+        .achievement-card.locked {
+            opacity: 0.55;
+            border-color: rgba(255, 221, 191, 0.05);
+            background: linear-gradient(180deg, rgba(38, 20, 12, 0.80), rgba(25, 14, 9, 0.85));
+        }
+
+        .achievement-card.locked:hover {
+            opacity: 0.65;
+        }
+
+        .achievement-icon {
+            font-size: 3.2rem;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            background: rgba(255, 176, 110, 0.12);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .achievement-card.unlocked .achievement-icon {
+            background: rgba(255, 176, 110, 0.22);
+            box-shadow: 0 0 30px rgba(255, 176, 110, 0.25);
+        }
+
+        .achievement-card.locked .achievement-icon {
+            background: rgba(255, 176, 110, 0.08);
+            filter: grayscale(60%);
+        }
+
+        .achievement-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text);
+            position: relative;
+            z-index: 1;
+        }
+
+        .achievement-description {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin-bottom: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .achievement-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .achievement-status.unlocked {
+            background: rgba(74, 222, 128, 0.15);
+            border-color: rgba(74, 222, 128, 0.35);
+            color: #86efac;
+        }
+
+        .achievement-status.locked {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.08);
+            color: var(--muted);
+        }
+
+        .achievement-progress {
+            width: 100%;
+            margin-top: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffb06e, #ff8360);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 12px rgba(255, 176, 110, 0.4);
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        .empty-achievements {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+        }
+
+        .empty-achievements-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .empty-achievements h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .section-actions button {
+            min-width: 140px;
+        }
+
+        /* Animations */
+        @keyframes achievementPop {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .achievement-card {
+            animation: achievementPop 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .achievement-card:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+
+        .achievement-card:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+
+        .achievement-card:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+
+        .achievement-card:nth-child(5) {
+            animation-delay: 0.2s;
+        }
+
+        .achievement-card:nth-child(6) {
+            animation-delay: 0.25s;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .achievements-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 16px;
+            }
+
+            .achievement-card {
+                padding: 16px;
+            }
+
+            .achievement-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .achievements-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .achievement-card {
+                padding: 14px;
+            }
+
+            .achievement-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+
+            .achievement-name {
+                font-size: 0.9rem;
+            }
+
+            .achievement-description {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <nav>
+        <div class="logo">Nova<span>Mind</span></div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/notes">Notes</a>
+            <a href="/tasks">Tasks</a>
+            <a href="/pomodoro">Focus</a>
+            <a href="/progress">Analytics</a>
+            <a href="/achievements">Achievements</a>
+        </div>
+        <button class="nav-btn" onclick="location.href='/achievements'">Workspace</button>
+    </nav>
+
+    <section class="section-panel reveal">
+        <div class="section-header">
+            <div>
+                <h2>Achievements</h2>
+                <p>Unlock badges and milestones as you progress through your learning journey.</p>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid" id="stats-container">
+            <!-- Loaded dynamically -->
+        </div>
+
+        <!-- Achievements by Category -->
+        <div id="achievements-container">
+            <!-- Loaded dynamically -->
+        </div>
+
+        <div class="section-actions">
+            <button class="secondary-btn" onclick="location.href='/progress'">View Analytics</button>
+            <button class="primary-btn" onclick="location.href='/tasks'">Continue Learning</button>
+        </div>
+    </section>
+
+    <script src="/static/auth.js"></script>
+    <script src="/static/achievements.js"></script>
+    <script src="/static/main.js"></script>
+</body>
+</html>
