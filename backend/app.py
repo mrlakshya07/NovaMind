@@ -277,6 +277,14 @@ def api_log_progress():
     user = get_current_user()
     data = input_data()
     result = progress.log_study_session(data.get('date', ''), data.get('hours', ''), user['user_id'])
+    if result.get("success"):
+
+        new_achievements = achievements.check_achievements(
+            user['user_id']
+        )
+
+        result["achievements"] = new_achievements
+
     return jsonify(result)
 
 # ============================================================================

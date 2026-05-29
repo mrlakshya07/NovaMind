@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import io
 import base64
 from supabase_client import supabase
+from achievements import check_achievements
 
 def log_study_session(date_input=None, hours=None, user_id=None):
 
@@ -59,10 +60,12 @@ def log_study_session(date_input=None, hours=None, user_id=None):
             })
             .execute()
         )
+        new_achievements = check_achievements(user_id)
 
         return {
             "success": True,
-            "message": f"Study session logged: {current_date}"
+            "message": f"Study session logged: {current_date}",
+            "achievements": new_achievements
         }
 
     except Exception as e:

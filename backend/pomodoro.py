@@ -5,6 +5,7 @@ Supports both real-time countdown and session persistence.
 
 from datetime import datetime, timedelta
 from supabase_client import supabase
+from achievements import check_achievements
 
 
 def start_pomodoro(minutes):
@@ -55,15 +56,18 @@ def save_pomodoro_session(user_id, duration_minutes):
             .table("pomodoro_sessions")
             .insert({
                 "user_id": user_id,
-                "duration_minutes": duration_minutes,
-                "completed_at": datetime.utcnow().isoformat()
+                "focus_minutes": duration_minutes,
+                "break_minutes": 5,
+                "completed": True
             })
             .execute()
         )
-        
+
+        new_achievements = check_achievements(user_id)
         return {
             "success": True,
-            "message": f"Pomodoro session recorded: {duration_minutes} minutes"
+            "message": f"Pomodoro session recorded: {duration_minutes} minutes",
+            "achievements": new_achievements
         }
     
     except Exception as e:
@@ -121,15 +125,15 @@ def get_user_pomodoro_stats(user_id):
         
         all_sessions = response.data or []
         total_sessions = len(all_sessions)
-        total_minutes = sum(int(s["duration_minutes"]) for s in all_sessions)
+        total_minutes = sum(int(s["focus_minutes"]) for s in all_sessions)
         
         # Get today's sessions
         today_sessions = [
             s for s in all_sessions
-            if s["completed_at"][:10] == today
+            if s["created_at"][:10] == today
         ]
         today_count = len(today_sessions)
-        today_minutes = sum(int(s["duration_minutes"]) for s in today_sessions)
+        today_minutes = sum(int(s["focus_minutes"]) for s in today_sessions)
         
         return {
             "total_sessions": total_sessions,

@@ -6,6 +6,7 @@ Replaces txt-file based storage.
 
 from datetime import datetime
 from supabase_client import supabase
+from achievements import check_achievements
 
 
 def viewnotes(user_id):
@@ -67,15 +68,18 @@ def addnotes(note_text, user_id):
             .table("notes")
             .insert({
                 "user_id": user_id,
+                "title": note_text.strip()[:50],
                 "content": note_text.strip(),
                 "created_at": timestamp
             })
             .execute()
         )
         
+        new_achievements = check_achievements(user_id)
         return {
             "success": True,
-            "message": "Note saved with timestamp!"
+            "message": "Note saved with timestamp!",
+            "achievements": new_achievements
         }
     
     except Exception as e:
