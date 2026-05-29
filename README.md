@@ -82,9 +82,10 @@ All data is **user-specific and persisted** to Supabase (PostgreSQL), so nothing
 - Tracks targets and averages over time
 
 ### 🏆 Achievement System
-- 10 unique achievements across 4 categories
+- 19 unique achievements across 5 categories (Study, Note, Task, Focus, Consistency)
+- XP and rarity levels for each achievement
+- Unified dashboard with progress tracking
 - Automatically awarded as milestones are reached
-- Progress tracking toward next achievement unlocks
 
 ---
 
@@ -287,6 +288,7 @@ All protected endpoints require an active session (login first).
 |--------|----------|-------------|
 | `GET` | `/api/achievements` | Get all earned achievements |
 | `GET` | `/api/achievements/progress` | Get progress toward next achievements |
+| `GET` | `/api/achievements/stats` | Get achievement statistics for dashboard |
 
 ---
 
@@ -369,22 +371,31 @@ http://127.0.0.1:5000
 
 ## 🏆 Achievement System
 
-NovaMind features a built-in achievement engine that automatically awards badges as users hit milestones.
+NovaMind features a comprehensive achievement engine that tracks progress across 5 categories, awarding XP, rarity, and badges as milestones are reached.
 
 | Achievement | Icon | Trigger |
 |-------------|------|---------|
-| **First Note** | 📝 | Write your first study note |
-| **Note Master** | 📚 | Write 10 study notes |
-| **Note Collector** | 📖 | Collect 100 study notes |
-| **Task Creator** | ✓ | Create your first task |
-| **Task Master** | ✔️ | Complete 10 tasks |
-| **Study Starter** | 📊 | Log your first study session |
-| **Consistent Scholar** | 📈 | Log 5 study sessions |
-| **Pomodoro Pioneer** | 🍅 | Complete your first Pomodoro |
-| **Focus Master** | 🎯 | Complete 10 Pomodoros |
-| **Week Warrior** | 🔥 | Maintain a 7-day study streak |
+| **First Session** | 🌱 | Log your first study session |
+| **Study Apprentice** | 📚 | Reach 10 study hours |
+| **Knowledge Builder** | 🎓 | Reach 50 study hours |
+| **Study Master** | 🏆 | Reach 100 study hours |
+| **First Note** | 📝 | Create your first note |
+| **Note Taker** | 📒 | Create 10 notes |
+| **Knowledge Scribe** | 📖 | Create 100 notes |
+| **First Task** | ✅ | Create your first task |
+| **Task Starter** | 🎯 | Complete your first task |
+| **Productivity Starter** | ⚡ | Complete 10 tasks |
+| **Task Champion** | 🚀 | Complete 50 tasks |
+| **First Focus Session** | ⏳ | Complete your first Pomodoro |
+| **Focus Builder** | 🎯 | Complete 25 Pomodoro sessions |
+| **Deep Work Master** | 🔥 | Complete 100 Pomodoro sessions |
+| **Focus Perfectionist** | 💎 | Complete a session with 95%+ focus score |
+| **3 Day Streak** | 📅 | Maintain a 3-day study streak |
+| **7 Day Streak** | 🔥 | Maintain a 7-day study streak |
+| **30 Day Streak** | 🚀 | Maintain a 30-day study streak |
+| **Consistency Legend** | 👑 | Maintain a 100-day study streak |
 
-Progress toward the next achievement in each category is tracked via `/api/achievements/progress`.
+Progress toward the next achievement in each category and detailed stats can be viewed on the unified achievements dashboard.
 
 ---
 
@@ -410,20 +421,16 @@ NovaMind's frontend is built with a **premium glassmorphism dark theme**, drawin
 | `/pomodoro` | Pomodoro timer |
 | `/progress` | Analytics dashboard |
 | `/progress/log` | Log a study session |
+| `/achievements` | Achievements dashboard |
 
 ---
 
 ## 🗺️ Roadmap
 
-- [ ] AI-powered Quiz Generator from notes
-- [ ] Study heatmap calendar (GitHub-style)
-- [ ] Dark / Light theme toggle
-- [ ] Mobile app (React Native or PWA)
-- [ ] Spaced repetition flashcard system
-- [ ] Friend leaderboard & social study rooms
-- [ ] Email reminders & study streak notifications
-- [ ] Export notes as PDF
-- [ ] Cloud deployment (Render / Railway / Vercel)
+- [ ] 🏆 Leaderboard
+- [ ] 🎯 Study Topic Tracking
+- [ ] ⏸️ Auto-pause when tab hidden
+- [ ] 🧠 Post-Pomodoro Quiz System
 
 ---
 
