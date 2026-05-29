@@ -3,10 +3,6 @@
   <p><strong>AI-Powered Student Productivity Platform</strong></p>
 
   <p>
-    <a href="https://github.com/mrlakshya07/NovaMind/stargazers"><img src="https://img.shields.io/github/stars/mrlakshya07/NovaMind?style=for-the-badge&color=ffd700" alt="Stars"></a>
-    <a href="https://github.com/mrlakshya07/NovaMind/network/members"><img src="https://img.shields.io/github/forks/mrlakshya07/NovaMind?style=for-the-badge&color=00aaff" alt="Forks"></a>
-    <a href="https://github.com/mrlakshya07/NovaMind/issues"><img src="https://img.shields.io/github/issues/mrlakshya07/NovaMind?style=for-the-badge&color=ff5555" alt="Issues"></a>
-    <a href="https://github.com/mrlakshya07/NovaMind/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mrlakshya07/NovaMind?style=for-the-badge&color=44cc44" alt="License"></a>
     <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
     <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
     <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
