@@ -29,6 +29,40 @@ function showMessage(containerId, message, success = true) {
     container.classList.toggle("warning", !success);
 }
 
+function showAchievementNotification(achievement) {
+
+    const toast = document.createElement("div");
+
+    toast.className = "achievement-toast";
+
+    toast.innerHTML = `
+        <div class="achievement-toast-icon">
+            ${achievement.icon}
+        </div>
+
+        <div class="achievement-toast-content">
+            <strong>🏆 Achievement Unlocked!</strong>
+            <div>${achievement.name}</div>
+            <small>+${achievement.xp || 0} XP</small>
+        </div>
+    `;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add("show");
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+
+        setTimeout(() => {
+            toast.remove();
+        }, 500);
+
+    }, 5000);
+}
+
 async function fetchJson(url, data = null, method = "GET") {
     const options = { method, headers: {} };
     if (data) {
@@ -76,6 +110,13 @@ async function setupNotesPage() {
         event.preventDefault();
         const noteText = document.getElementById("note-input").value.trim();
         const result = await fetchJson("/api/notes/add", { note: noteText }, "POST");
+        if (result.achievements && result.achievements.length) {
+
+            result.achievements.forEach(achievement => {
+                showAchievementNotification(achievement);
+            });
+
+        }
         showMessage("note-message", result.message, result.success);
         if (result.success) {
             document.getElementById("note-input").value = "";
@@ -142,6 +183,13 @@ async function setupTasksPage() {
                 const taskId = button.dataset.id;
                 const url = action === "toggle" ? "/api/tasks/toggle" : "/api/tasks/delete";
                 const result = await fetchJson(url, { task_id: taskId }, "POST");
+                if (result.achievements && result.achievements.length) {
+
+                    result.achievements.forEach(achievement => {
+                        showAchievementNotification(achievement);
+                    });
+
+                }
                 showMessage("task-message", result.message, result.success);
                 loadTasks();
             });
@@ -151,6 +199,13 @@ async function setupTasksPage() {
     taskForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         const result = await fetchJson("/api/tasks/add", { task: taskInput.value.trim() }, "POST");
+        if (result.achievements && result.achievements.length) {
+
+            result.achievements.forEach(achievement => {
+                showAchievementNotification(achievement);
+            });
+
+        }
         showMessage("task-message", result.message, result.success);
         if (result.success) {
             taskInput.value = "";
@@ -171,7 +226,7 @@ async function setupPomodoroPage() {
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const minutes = document.getElementById("minutes-input").value;
-        const result = await fetchJson("/pomodoro/start", { minutes }, "POST");
+        const result = await fetchJson("/api/pomodoro/start", { minutes }, "POST");
         if (!result.success) {
             showMessage(messageId, result.message, false);
             return;
@@ -182,13 +237,52 @@ async function setupPomodoroPage() {
         timerValue.textContent = formatTime(remaining);
 
         if (interval) clearInterval(interval);
-        interval = setInterval(() => {
+        interval = setInterval(async () => {
             remaining -= 1;
             if (remaining <= 0) {
+
                 clearInterval(interval);
+
                 timerLabel.textContent = "Session complete!";
                 timerValue.textContent = "00:00";
-                showMessage(messageId, "Pomodoro complete — take a short break.", true);
+
+                const saveResult = await fetchJson(
+                    "/api/pomodoro/complete",
+                    {
+                        duration_minutes: result.minutes
+                    },
+                    "POST"
+                );
+
+                if (saveResult.success) {
+
+                    showMessage(
+                        messageId,
+                        "Pomodoro complete — session saved!",
+                        true
+                    );
+
+                    if (
+                        saveResult.achievements &&
+                        saveResult.achievements.length
+                    ) {
+
+                        saveResult.achievements.forEach(achievement => {
+                            showAchievementNotification(achievement);
+                        });
+
+                    }
+
+                } else {
+
+                    showMessage(
+                        messageId,
+                        saveResult.message,
+                        false
+                    );
+
+                }
+
                 return;
             }
             timerValue.textContent = formatTime(remaining);
@@ -204,6 +298,13 @@ async function setupProgressLogPage() {
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const result = await fetchJson("/api/progress/log", { date: dateInput.value, hours: hoursInput.value }, "POST");
+        if (result.achievements && result.achievements.length) {
+
+            result.achievements.forEach(achievement => {
+                showAchievementNotification(achievement);
+            });
+
+        }
         showMessage("progress-log-message", result.message, result.success);
         if (result.success) {
             dateInput.value = "";

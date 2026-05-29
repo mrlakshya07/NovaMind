@@ -798,3 +798,58 @@ button:hover {
         transparent 70%
     );
 }
+
+.achievement-toast {
+
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    width: 320px;
+
+    display: flex;
+    gap: 14px;
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+    background: rgba(30,30,40,0.95);
+
+    border: 1px solid rgba(157,125,255,0.4);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
+    z-index: 99999;
+
+    opacity: 0;
+
+    transform: translateX(120%);
+
+    transition: all 0.4s ease;
+}
+
+.achievement-toast.show {
+
+    opacity: 1;
+
+    transform: translateX(0);
+}
+
+.achievement-toast-icon {
+
+    font-size: 2rem;
+}
+
+.achievement-toast-content {
+
+    color: white;
+}
+
+.achievement-toast-content strong {
+
+    display: block;
+
+    margin-bottom: 6px;
+}
