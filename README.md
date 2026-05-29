@@ -221,7 +221,7 @@ Get NovaMind running locally in just a few minutes.
 
 4. **Run the application**
    ```bash
-   flask run
+   python backend/app.py
    ```
 
 ---
