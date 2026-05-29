@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🚀 NovaMind</h1>
+  <h1>🧠 NovaMind</h1>
   <p><strong>AI-Powered Student Productivity Platform</strong></p>
 
   <p>
@@ -344,7 +344,7 @@ Please read our `CONTRIBUTING.md` for detailed guidelines.
 
 ## 📄 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License.
 
 ---
 
