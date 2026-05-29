@@ -14,32 +14,15 @@ def get_current_user():
     """
 
     user_id = session.get('user_id')
-    access_token = session.get('access_token')
 
-    if not user_id or not access_token:
+    if not user_id:
         return None
 
-    try:
-
-        response = supabase.auth.get_user(access_token)
-
-        user = response.user
-
-        if user:
-
-            return {
-                'id': user.id,
-                'email': user.email,
-                'user_id': user_id
-            }
-
-    except Exception as e:
-
-        print(f"Token verification error: {e}")
-
-        return None
-
-    return None
+    return {
+        'id': user_id,
+        'user_id': user_id,
+        'email': session.get('email')
+    }
 
 def login_required(f):
     """
@@ -139,6 +122,7 @@ def login(email, password):
         
         # Store tokens in Flask session
         session['user_id'] = user.id
+        session['email'] = user.email
         session['access_token'] = session_data.access_token
         session['refresh_token'] = session_data.refresh_token
         

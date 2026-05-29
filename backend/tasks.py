@@ -6,6 +6,7 @@ Replaces txt-file based storage.
 
 from datetime import datetime
 from supabase_client import supabase
+from achievements import check_achievements
 
 
 def load_tasks(user_id):
@@ -35,8 +36,10 @@ def load_tasks(user_id):
         for row in response.data:
             tasks.append({
                 "id": row["id"],
-                "title": row["title"],
-                "status": row["status"],
+                "title": row["task"],
+                "completed": row["completed"],
+                "priority": row.get("priority"),
+                "due_date": row.get("due_date"),
                 "created_at": row["created_at"]
             })
         return tasks
@@ -69,17 +72,19 @@ def add_task(task_text, user_id):
             .table("tasks")
             .insert({
                 "user_id": user_id,
-                "title": task_text.strip(),
-                "status": "todo",
+                "task": task_text.strip(),
+                "completed": False,
                 "created_at": datetime.utcnow().isoformat()
             })
             .execute()
         )
         
+        new_achievements = check_achievements(user_id)
         return {
             "success": True,
             "message": "Task added successfully.",
-            "task_id": response.data[0]["id"] if response.data else None
+            "task_id": response.data[0]["id"] if response.data else None,
+            "achievements": new_achievements
         }
     
     except Exception as e:
@@ -105,7 +110,7 @@ def toggle_task(task_id, user_id):
         response = (
             supabase
             .table("tasks")
-            .select("status")
+            .select("completed")
             .eq("id", task_id)
             .eq("user_id", user_id)
             .single()
@@ -115,18 +120,23 @@ def toggle_task(task_id, user_id):
         if not response.data:
             return {"success": False, "message": "Task not found."}
         
-        current_status = response.data["status"]
-        new_status = "done" if current_status == "todo" else "todo"
+        current_status = response.data["completed"]
+        new_status = not current_status
         
         # Update task status
         supabase.table("tasks").update({
-            "status": new_status,
-            "updated_at": datetime.utcnow().isoformat()
+            "completed": new_status
         }).eq("id", task_id).eq("user_id", user_id).execute()
+
+        new_achievements = []
+
+        if new_status:
+            new_achievements = check_achievements(user_id)
         
         return {
             "success": True,
-            "message": f"Task marked as {new_status}."
+            "message": f"Task marked as {new_status}.",
+            "achievements": new_achievements
         }
     
     except Exception as e:

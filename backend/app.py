@@ -157,6 +157,12 @@ def progress_log_page():
         return redirect(url_for('login_page'))
     return render_template('progress_log.html')
 
+@app.route('/achievements')
+def achievements_page():
+    if not get_current_user():
+        return redirect(url_for('login_page'))
+    return render_template('achievements.html')
+
 def input_data():
     return request.get_json(silent=True) or request.form.to_dict()
 
@@ -326,10 +332,31 @@ def get_achievements():
 def get_achievement_progress():
     """Get progress toward next achievements"""
     user = get_current_user()
+    if not user:
+        return jsonify({
+            'success': False,
+            'message': 'Authentication required'
+        }), 401
     progress_data = achievements.get_achievement_progress(user['user_id'])
     return jsonify({
         'success': True,
         'progress': progress_data
+    })
+
+@app.route('/api/achievements/stats', methods=['GET'])
+@login_required
+def get_achievement_stats():
+    """Get achievement statistics for dashboard"""
+    user = get_current_user()
+    if not user:
+        return jsonify({
+            'success': False,
+            'message': 'Authentication required'
+        }), 401
+    stats = achievements.get_achievement_stats(user['user_id'])
+    return jsonify({
+        'success': True,
+        'stats': stats
     })
 
 if __name__ == '__main__':
