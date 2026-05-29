@@ -1,467 +1,247 @@
 <div align="center">
+  <img src="https://via.placeholder.com/150x150.png?text=NovaMind+Logo" alt="NovaMind Logo" width="150" height="150" />
+  <h1>🚀 NovaMind</h1>
+  <p><strong>AI-Powered Student Productivity Platform</strong></p>
 
+  <p>
+    <a href="https://github.com/mrlakshya07/NovaMind/stargazers"><img src="https://img.shields.io/github/stars/mrlakshya07/NovaMind?style=for-the-badge&color=ffd700" alt="Stars"></a>
+    <a href="https://github.com/mrlakshya07/NovaMind/network/members"><img src="https://img.shields.io/github/forks/mrlakshya07/NovaMind?style=for-the-badge&color=00aaff" alt="Forks"></a>
+    <a href="https://github.com/mrlakshya07/NovaMind/issues"><img src="https://img.shields.io/github/issues/mrlakshya07/NovaMind?style=for-the-badge&color=ff5555" alt="Issues"></a>
+    <a href="https://github.com/mrlakshya07/NovaMind/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mrlakshya07/NovaMind?style=for-the-badge&color=44cc44" alt="License"></a>
+    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+    <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
+    <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
+  </p>
 
-<h1>🧠 NovaMind</h1>
-<h3>Smart Study Productivity Platform</h3>
-
-<p>A full-stack student productivity platform that combines smart notes, task management, Pomodoro focus sessions, study analytics, and a gamified achievement system — all in one immersive digital workspace.</p>
-
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-2.x-000000?style=for-the-badge&logo=flask&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-Database%20%26%20Auth-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
-
+  <p>
+    <em>A modern, gamified SaaS architecture built for students to track study progress, manage tasks, take smart notes, and master deep work.</em>
+  </p>
 </div>
 
----
+<hr />
 
-## 📖 Table of Contents
+## ✨ Features Showcase
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Tech Stack](#️-tech-stack)
-- [Project Structure](#-project-structure)
-- [Database Schema](#-database-schema)
-- [API Reference](#-api-reference)
-- [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
-- [Achievement System](#-achievement-system)
-- [UI/UX Design](#-uiux-design)
-- [Roadmap](#-roadmap)
-- [Author](#-author)
+### 🔐 Secure Authentication & User Isolation
+- **Supabase Auth Integration**: Robust signup, login, and session management.
+- **Data Isolation**: Fully isolated user data leveraging PostgreSQL Row Level Security.
 
----
+### 📈 Study Progress Tracker
+- **Log Sessions**: Accurately log and record study sessions.
+- **Track Hours**: Measure total study hours over time.
+- **Historical Analytics**: Visualize and analyze historical study data.
 
-## 🌟 Overview
+### 📝 Smart Notes System
+- **Cloud Storage**: Secure note storage and retrieval using Supabase.
+- **Quick Search**: Fast retrieval of previously saved notes.
+- **CRUD Operations**: Complete create, read, update, and delete note functionality.
 
-NovaMind transforms the traditional student productivity experience into a modern, immersive workspace. Rather than juggling multiple apps, students get a single, cohesive platform with:
+### 📋 Task Management
+- **Prioritization**: Set custom priorities for tasks (High, Medium, Low).
+- **Due Dates**: Organize your workflow with due dates.
+- **Completion Tracking**: Seamlessly create, manage, and complete tasks.
 
-- 🔐 **Secure user accounts** powered by Supabase Auth + JWT sessions
-- 📝 **Smart Notes** with keyword-based search
-- ✅ **Task Management** with real-time completion tracking
-- 🍅 **Pomodoro Timer** for deep-focus study sessions
-- 📊 **Visual Analytics** with auto-generated study charts
-- 🏆 **Gamified Achievements** to keep motivation high
-
-All data is **user-specific and persisted** to Supabase (PostgreSQL), so nothing is lost between sessions.
+### ⏱️ Pomodoro Focus System
+- **Real-Time Countdown**: Built-in, persistent timer for tracking focused study blocks.
+- **Focus Score**: Calculates session effectiveness.
+- **Statistics**: Analyze focus metrics and performance.
 
 ---
 
-## ✨ Features
+## 🏗️ Architecture Overview
 
-### 🔐 Authentication System
-- Email/password signup and login via **Supabase Auth**
-- JWT access tokens stored securely in **Flask server-side sessions**
-- `@login_required` decorator protects all API routes
-- Auto-redirect to login page for unauthenticated access
-- Graceful logout with session clearing
+NovaMind is built with a modern, scalable SaaS architecture:
 
-### 📝 Smart Notes
-- Create, view, search, and delete study notes
-- **Fuzzy keyword search** powered by RapidFuzz
-- NLP-enhanced processing with spaCy
-- Notes are user-scoped — no data leakage between accounts
-
-### ✅ Task Management
-- Add tasks with a single click
-- Toggle tasks between **pending** and **done**
-- Delete completed tasks
-- Achievement triggers fire on task milestones
-
-### 🍅 Pomodoro Focus Timer
-- Configurable session duration (default: 25 min)
-- Live browser countdown timer
-- Sessions are saved to Supabase on completion
-- View total sessions and focus stats on the dashboard
-
-### 📊 Study Progress Tracker
-- Log daily study hours with date tracking
-- Auto-generates a **Matplotlib chart** of average study time
-- Session history sorted by most recent
-- Tracks targets and averages over time
-
-### 🏆 Achievement System
-- 19 unique achievements across 5 categories (Study, Note, Task, Focus, Consistency)
-- XP and rarity levels for each achievement
-- Unified dashboard with progress tracking
-- Automatically awarded as milestones are reached
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| **Backend Framework** | Flask (Python) |
-| **Database** | Supabase (PostgreSQL) |
-| **Authentication** | Supabase Auth + JWT |
-| **ORM / DB Client** | supabase-py |
-| **NLP** | spaCy |
-| **Fuzzy Search** | RapidFuzz |
-| **Charts** | Matplotlib |
-| **Frontend** | HTML5, CSS3, Vanilla JavaScript |
-| **Styling** | Custom CSS (Glassmorphism + Dark Theme) |
-| **Config** | python-dotenv |
-
----
-
-## 📂 Project Structure
-
-```
-study_buddy/
-│
-├── backend/
-│   ├── app.py                     # Flask app — all routes & API endpoints
-│   ├── auth_service.py            # Supabase Auth, JWT & session management
-│   ├── supabase_client.py         # Supabase client initialization
-│   ├── notes.py                   # Notes CRUD (add, view, search, delete)
-│   ├── tasks.py                   # Task management (add, toggle, delete)
-│   ├── pomodoro.py                # Pomodoro timer logic & session storage
-│   ├── study_progress_tracker.py  # Study session logging & chart generation
-│   ├── achievements.py            # Achievement definitions & award logic
-│   ├── quiz_app.py                # Quiz feature module
-│   ├── todolist.py                # Legacy to-do list module
-│   ├── .env                       # Environment variables (not committed)
-│   └── requirements.txt           # Backend dependencies
-│
-├── frontend/
-│   ├── templates/
-│   │   ├── index.html             # Main dashboard
-│   │   ├── login.html             # Login page
-│   │   ├── signup.html            # Signup page
-│   │   ├── notes.html             # Notes UI
-│   │   ├── tasks.html             # Task manager UI
-│   │   ├── pomodoro.html          # Pomodoro timer UI
-│   │   ├── progress.html          # Study analytics dashboard
-│   │   └── progress_log.html      # Log study session UI
-│   └── static/
-│       ├── style.css              # Main stylesheet (glassmorphism dark theme)
-│       ├── animations.css         # Micro-animations & transitions
-│       ├── main.js                # Core frontend logic (all modules)
-│       └── auth.js                # Frontend auth flow handling
-│
-├── requirements.txt               # Project-level dependencies
-└── README.md
-```
+- **Frontend**: HTML5, CSS3, JavaScript (Vanilla for maximum performance).
+- **Backend**: Python with Flask, providing a modular and RESTful API.
+- **Database**: Supabase PostgreSQL for relational data, ensuring high performance and data integrity.
+- **Authentication**: Supabase Auth for seamless user identity management.
+- **AI / Data Processing**: `spaCy` for text analysis, `RapidFuzz` for string matching, and `Matplotlib` for dynamic analytics generation.
 
 ---
 
 ## 🗄️ Database Schema
 
-NovaMind uses **Supabase (PostgreSQL)** with the following tables:
+The system utilizes a structured relational database hosted on Supabase:
 
-### `users`
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key (from Supabase Auth) |
-| `username` | TEXT | Display name |
-| `email` | TEXT | User email |
-
-### `notes`
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key |
-| `user_id` | UUID | Foreign key → users |
-| `content` | TEXT | Note body |
-| `created_at` | TIMESTAMP | Creation time |
-
-### `tasks`
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key |
-| `user_id` | UUID | Foreign key → users |
-| `title` | TEXT | Task description |
-| `status` | TEXT | `pending` or `done` |
-| `created_at` | TIMESTAMP | Creation time |
-
-### `study_sessions`
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key |
-| `user_id` | UUID | Foreign key → users |
-| `date` | DATE | Study date |
-| `hours` | FLOAT | Hours studied |
-
-### `pomodoro_sessions`
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key |
-| `user_id` | UUID | Foreign key → users |
-| `duration_minutes` | INT | Session duration |
-| `completed_at` | TIMESTAMP | Completion time |
-
-### `achievements`
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key |
-| `user_id` | UUID | Foreign key → users |
-| `type` | TEXT | Achievement key (e.g. `first_note`) |
-| `earned_at` | TIMESTAMP | When it was awarded |
+- `users`: Core identity and profile settings.
+- `study_sessions`: Logs of all recorded study periods.
+- `notes`: User-created study materials and text notes.
+- `tasks`: Action items, including priority and due date details.
+- `achievements`: User-unlocked milestones and XP logic.
+- `pomodoro_sessions`: Tracking deep-work intervals and focus scores.
 
 ---
 
-## 📡 API Reference
+## 📸 Screenshots
 
-All protected endpoints require an active session (login first).
+| Dashboard | Notes System |
+| :---: | :---: |
+| <img src="https://via.placeholder.com/800x450.png?text=Dashboard+Screenshot" alt="Dashboard Screenshot" width="100%"> | <img src="https://via.placeholder.com/800x450.png?text=Notes+Screenshot" alt="Notes Screenshot" width="100%"> |
+| **Pomodoro Timer** | **Achievements** |
+| <img src="https://via.placeholder.com/800x450.png?text=Timer+Screenshot" alt="Timer Screenshot" width="100%"> | <img src="https://via.placeholder.com/800x450.png?text=Achievements+Screenshot" alt="Achievements Screenshot" width="100%"> |
 
-### 🔑 Authentication
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/auth/signup` | Register a new account |
-| `POST` | `/api/auth/login` | Login with email & password |
-| `POST` | `/api/auth/logout` | Logout and clear session |
-| `GET` | `/api/auth/me` | Get current user info |
-
-**Signup Request Body:**
-```json
-{
-  "email": "user@example.com",
-  "password": "securepassword",
-  "username": "Lakshya"
-}
-```
-
-**Login Request Body:**
-```json
-{
-  "email": "user@example.com",
-  "password": "securepassword"
-}
-```
+*(Note: Replace placeholders with actual application screenshots)*
 
 ---
 
-### 📝 Notes
+## 🏆 Achievement System (Gamification)
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/notes` | Fetch all notes for current user |
-| `POST` | `/api/notes/add` | Add a new note |
-| `POST` | `/api/notes/search` | Search notes by keyword |
-| `POST` | `/api/notes/delete` | Delete a note by number |
+Stay motivated by unlocking dynamic achievements, earning XP, and receiving real-time toast notifications!
 
----
+**Categories**: Study, Task, Note, Focus, and Consistency Achievements.
 
-### ✅ Tasks
+<details>
+<summary><strong>🏅 View Implemented Achievements</strong></summary>
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/tasks` | Fetch all tasks for current user |
-| `POST` | `/api/tasks/add` | Add a new task |
-| `POST` | `/api/tasks/toggle` | Toggle task completion status |
-| `POST` | `/api/tasks/delete` | Delete a task |
+- **Study**: First Session, Study Apprentice, Knowledge Builder, Study Master
+- **Notes**: First Note, Note Taker, Knowledge Scribe
+- **Tasks**: First Task, Task Starter, Productivity Starter, Task Champion
+- **Focus**: First Focus Session, Focus Builder, Deep Work Master, Focus Perfectionist
+- **Consistency**: 3 Day Streak, 7 Day Streak, 30 Day Streak, Consistency Legend
+</details>
 
 ---
 
-### 📊 Progress
+## 🎯 Focus Integrity System
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/progress` | Get all sessions + chart URL |
-| `POST` | `/api/progress/log` | Log a new study session |
-
-**Log Session Body:**
-```json
-{
-  "date": "2026-05-28",
-  "hours": 3.5
-}
-```
+Our advanced Focus Integrity mechanism ensures your study sessions are genuinely productive:
+- **Tab Switching & Visibility Tracking**: Detects when you navigate away from your study interface.
+- **Focus Score Calculation**: Generates a score based on continuous, uninterrupted work.
+- **Rewards**: Unlock the exclusive *Focus Perfectionist* achievement for maintaining a 95%+ focus score during a session.
 
 ---
 
-### 🍅 Pomodoro
+## 🚀 Installation Guide
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/pomodoro/start` | Start a pomodoro session |
-| `POST` | `/api/pomodoro/complete` | Save a completed session |
-| `GET` | `/api/pomodoro/stats` | Get user's pomodoro statistics |
-
----
-
-### 🏆 Achievements
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/achievements` | Get all earned achievements |
-| `GET` | `/api/achievements/progress` | Get progress toward next achievements |
-| `GET` | `/api/achievements/stats` | Get achievement statistics for dashboard |
-
----
-
-## 🚀 Getting Started
+Get NovaMind running locally in just a few minutes.
 
 ### Prerequisites
-
-- Python 3.10+
-- A [Supabase](https://supabase.com) account (free tier is enough)
+- Python 3.9+
 - Git
+- Supabase Account
 
-### 1. Clone the Repository
+### Setup Instructions
 
-### 1. Clone Repository
-```bash
-git clone https://github.com/mrlakshya07/NovaMind.git
-cd NovaMind
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mrlakshya07/NovaMind.git
+   cd NovaMind
+   ```
 
-### 2. Create a Virtual Environment
+2. **Create and activate a virtual environment**
+   ```bash
+   python -m venv venv
+   # Windows
+   venv\Scripts\activate
+   # macOS/Linux
+   source venv/bin/activate
+   ```
 
-```bash
-python -m venv venv
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# Windows
-venv\Scripts\activate
+4. **Run the application**
+   ```bash
+   flask run
+   ```
 
-# macOS / Linux
-source venv/bin/activate
-```
+---
 
-### 3. Install Dependencies
+## ⚙️ Environment Variables
 
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Set Up Supabase
-
-1. Go to [supabase.com](https://supabase.com) and create a new project
-2. In your project dashboard, go to **Settings → API**
-3. Copy your **Project URL** and **anon/public key**
-4. Create the required database tables (see [Database Schema](#-database-schema))
-
-### 5. Configure Environment Variables
-
-Create a `.env` file inside the `backend/` directory:
+Create a `.env` file in the root directory and add the following keys. You can find these in your Supabase project settings.
 
 ```env
-SUPABASE_URL=https://your-project-id.supabase.co
-SUPABASE_KEY=your-anon-public-key
-SECRET_KEY=your-flask-secret-key
-```
-
-> ⚠️ Never commit `.env` to version control. It is already listed in `.gitignore`.
-
-### 6. Run the Application
-
-```bash
-python backend/app.py
-```
-
-### 7. Open in Browser
-
-```
-http://127.0.0.1:5000
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_KEY=your_supabase_anon_key
+FLASK_APP=backend/app.py
+FLASK_ENV=development
+SECRET_KEY=your_secure_flask_secret_key
 ```
 
 ---
 
-## 🔐 Environment Variables
+## 📁 Project Structure
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `SUPABASE_URL` | ✅ | Your Supabase project URL |
-| `SUPABASE_KEY` | ✅ | Supabase anon/public API key |
-| `SECRET_KEY` | ✅ | Flask session secret key (use a long random string in production) |
-
----
-
-## 🏆 Achievement System
-
-NovaMind features a comprehensive achievement engine that tracks progress across 5 categories, awarding XP, rarity, and badges as milestones are reached.
-
-| Achievement | Icon | Trigger |
-|-------------|------|---------|
-| **First Session** | 🌱 | Log your first study session |
-| **Study Apprentice** | 📚 | Reach 10 study hours |
-| **Knowledge Builder** | 🎓 | Reach 50 study hours |
-| **Study Master** | 🏆 | Reach 100 study hours |
-| **First Note** | 📝 | Create your first note |
-| **Note Taker** | 📒 | Create 10 notes |
-| **Knowledge Scribe** | 📖 | Create 100 notes |
-| **First Task** | ✅ | Create your first task |
-| **Task Starter** | 🎯 | Complete your first task |
-| **Productivity Starter** | ⚡ | Complete 10 tasks |
-| **Task Champion** | 🚀 | Complete 50 tasks |
-| **First Focus Session** | ⏳ | Complete your first Pomodoro |
-| **Focus Builder** | 🎯 | Complete 25 Pomodoro sessions |
-| **Deep Work Master** | 🔥 | Complete 100 Pomodoro sessions |
-| **Focus Perfectionist** | 💎 | Complete a session with 95%+ focus score |
-| **3 Day Streak** | 📅 | Maintain a 3-day study streak |
-| **7 Day Streak** | 🔥 | Maintain a 7-day study streak |
-| **30 Day Streak** | 🚀 | Maintain a 30-day study streak |
-| **Consistency Legend** | 👑 | Maintain a 100-day study streak |
-
-Progress toward the next achievement in each category and detailed stats can be viewed on the unified achievements dashboard.
+```text
+NovaMind/
+├── backend/
+│   ├── app.py              # Main Flask application
+│   ├── routes/             # API endpoint handlers
+│   ├── models/             # Database interactions & logic
+│   └── utils/              # Helper functions (AI, scoring)
+├── frontend/
+│   ├── static/             # CSS, JS, and Images
+│   └── templates/          # HTML Templates
+├── requirements.txt        # Python dependencies
+├── .env.example            # Environment variables template
+└── README.md               # Project documentation
+```
 
 ---
 
-## 🎨 UI/UX Design
+## 🔌 API Overview
 
-NovaMind's frontend is built with a **premium glassmorphism dark theme**, drawing inspiration from tools like Notion, Linear, and Todoist.
+NovaMind provides a robust REST API for seamless frontend-backend communication.
 
-**Design Highlights:**
-- 🌑 Deep dark background with glass-effect cards
-- ✨ Smooth gradient accents and hover effects
-- 🎞️ Micro-animations for interactive elements (see `animations.css`)
-- 📱 Responsive layout for all screen sizes
-- 🖋️ Modern typography with clean hierarchy
+- **`POST /api/auth/login`**: Authenticate user and create session.
+- **`GET /api/notes`**: Retrieve user-specific notes.
+- **`POST /api/tasks`**: Create a new priority task.
+- **`POST /api/pomodoro/session`**: Log completed focus block and calculate score.
+- **`GET /api/achievements/status`**: Fetch user XP and unlocked badges.
 
-**Pages:**
-| Route | Page |
-|-------|------|
-| `/` | Main dashboard |
-| `/login` | Login page |
-| `/signup` | Signup page |
-| `/notes` | Notes manager |
-| `/tasks` | Task list |
-| `/pomodoro` | Pomodoro timer |
-| `/progress` | Analytics dashboard |
-| `/progress/log` | Log a study session |
-| `/achievements` | Achievements dashboard |
+*(Refer to the full API documentation in the wiki for more details)*
 
 ---
 
-## 🗺️ Roadmap
+## 🗺️ Future Roadmap
 
-- [ ] 🏆 Leaderboard
-- [ ] 🎯 Study Topic Tracking
-- [ ] ⏸️ Auto-pause when tab hidden
-- [ ] 🧠 Post-Pomodoro Quiz System
+We are constantly improving NovaMind. Here's what's coming next:
+
+- [ ] **Global Leaderboard**: Compete with students worldwide.
+- [ ] **Study Topic Tracking**: Categorize and analyze time spent per subject.
+- [ ] **Auto Pause on Tab Switch**: Enforce focus by automatically pausing the timer.
+- [ ] **AI Quiz Generation**: Automatically generate quizzes from your notes.
+- [ ] **Focus Analytics Dashboard**: Advanced data visualization for study habits.
+- [ ] **Production Deployment**: Full deployment on modern cloud infrastructure.
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contribution Guide
 
-Contributions are welcome! To get started:
+We welcome contributions from the community! NovaMind is an excellent project for hackathons and programs like GSSoC.
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature-name`
-3. Commit your changes: `git commit -m "feat: add your feature"`
-4. Push to your branch: `git push origin feature/your-feature-name`
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-Please follow conventional commit messages and keep PRs focused on a single feature or fix.
+Please read our `CONTRIBUTING.md` for detailed guidelines.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License**
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Developer
+
+**Lakshya**  
+*Full Stack Developer & Open Source Contributor*
+
+- GitHub: [@mrlakshya07](https://github.com/mrlakshya07)
+- Portfolio: [Your Portfolio Link](#)
+- LinkedIn: [Your LinkedIn Profile](#)
+
+---
 
 <div align="center">
-
-**Built with ❤️ by Lakshya**
-
-If you found this project useful or inspiring, please consider giving it a ⭐ — it really helps!
-
-[![GitHub](https://img.shields.io/badge/GitHub-mrlakshya07-181717?style=for-the-badge&logo=github)](https://github.com/mrlakshya07)
-
+  <p>Made with ❤️ to boost student productivity.</p>
+  <p><strong>NovaMind</strong> &copy; 2026. All Rights Reserved.</p>
 </div>
