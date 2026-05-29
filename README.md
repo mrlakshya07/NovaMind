@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="https://via.placeholder.com/150x150.png?text=NovaMind+Logo" alt="NovaMind Logo" width="150" height="150" />
   <h1>🚀 NovaMind</h1>
   <p><strong>AI-Powered Student Productivity Platform</strong></p>
 
@@ -14,11 +13,30 @@
   </p>
 
   <p>
-    <em>A modern, gamified SaaS architecture built for students to track study progress, manage tasks, take smart notes, and master deep work.</em>
+    <em>A gamified student productivity platform featuring study analytics, achievement progression, focus integrity tracking, and cloud-powered data management.</em>
   </p>
 </div>
 
 <hr />
+
+## 🌟 Why NovaMind?
+
+Most productivity apps track tasks.
+
+NovaMind tracks growth.
+
+By combining:
+
+- 📈 Study Analytics
+- 📝 Smart Notes
+- 📋 Task Management
+- ⏱️ Pomodoro Sessions
+- 🏆 Achievement Gamification
+- 💎 Focus Integrity Tracking
+
+NovaMind transforms studying into a rewarding and measurable experience.
+
+---
 
 ## ✨ Features Showcase
 
@@ -60,6 +78,28 @@ NovaMind is built with a modern, scalable SaaS architecture:
 
 ---
 
+## 🚀 Major Milestones
+
+✅ Migrated from TXT Storage → Supabase PostgreSQL
+
+✅ Implemented Supabase Authentication
+
+✅ Built User-Isolated Multi-User Architecture
+
+✅ Developed Achievement Dashboard
+
+✅ Added Real-Time Achievement Toast Notifications
+
+✅ Implemented Focus Integrity Tracking
+
+✅ Created XP-Based Gamification System
+
+✅ Built 19 Unlockable Achievements
+
+✅ Integrated Focus Score Analytics
+
+---
+
 ## 🗄️ Database Schema
 
 The system utilizes a structured relational database hosted on Supabase:
@@ -71,23 +111,41 @@ The system utilizes a structured relational database hosted on Supabase:
 - `achievements`: User-unlocked milestones and XP logic.
 - `pomodoro_sessions`: Tracking deep-work intervals and focus scores.
 
----
+### Database Migration
 
-## 📸 Screenshots
+NovaMind originally stored data using local text files.
 
-| Dashboard | Notes System |
-| :---: | :---: |
-| <img src="https://via.placeholder.com/800x450.png?text=Dashboard+Screenshot" alt="Dashboard Screenshot" width="100%"> | <img src="https://via.placeholder.com/800x450.png?text=Notes+Screenshot" alt="Notes Screenshot" width="100%"> |
-| **Pomodoro Timer** | **Achievements** |
-| <img src="https://via.placeholder.com/800x450.png?text=Timer+Screenshot" alt="Timer Screenshot" width="100%"> | <img src="https://via.placeholder.com/800x450.png?text=Achievements+Screenshot" alt="Achievements Screenshot" width="100%"> |
+The project has now been fully migrated to:
 
-*(Note: Replace placeholders with actual application screenshots)*
+✅ Supabase PostgreSQL
+
+Benefits:
+
+- Cloud Persistence
+- User Isolation
+- Better Scalability
+- Secure Authentication Integration
+- Real-Time Achievement Tracking
 
 ---
 
 ## 🏆 Achievement System (Gamification)
 
 Stay motivated by unlocking dynamic achievements, earning XP, and receiving real-time toast notifications!
+
+### Current Progression System
+
+🏅 19 Unlockable Achievements
+
+⭐ XP-Based Reward System
+
+🔥 Real-Time Achievement Notifications
+
+📊 Achievement Progress Tracking
+
+💎 Focus Integrity Achievements
+
+🎯 5 Achievement Categories
 
 **Categories**: Study, Task, Note, Focus, and Consistency Achievements.
 
@@ -105,10 +163,32 @@ Stay motivated by unlocking dynamic achievements, earning XP, and receiving real
 
 ## 🎯 Focus Integrity System
 
-Our advanced Focus Integrity mechanism ensures your study sessions are genuinely productive:
-- **Tab Switching & Visibility Tracking**: Detects when you navigate away from your study interface.
-- **Focus Score Calculation**: Generates a score based on continuous, uninterrupted work.
-- **Rewards**: Unlock the exclusive *Focus Perfectionist* achievement for maintaining a 95%+ focus score during a session.
+NovaMind goes beyond a traditional Pomodoro timer.
+
+During every focus session NovaMind tracks:
+
+- Browser tab switching
+- Page visibility changes
+- Session completion integrity
+- Real-time focus score calculation
+
+### Focus Score Formula
+
+Focus Score = (Focused Time ÷ Total Session Time) × 100
+
+### Focus Perfectionist Achievement
+
+Students who maintain:
+
+✅ 95%+ Focus Score
+
+✅ 25+ Minute Focus Session
+
+unlock the exclusive:
+
+💎 Focus Perfectionist
+
+This encourages genuine deep work instead of simply leaving a timer running.
 
 ---
 
@@ -168,17 +248,37 @@ SECRET_KEY=your_secure_flask_secret_key
 
 ```text
 NovaMind/
+│
 ├── backend/
-│   ├── app.py              # Main Flask application
-│   ├── routes/             # API endpoint handlers
-│   ├── models/             # Database interactions & logic
-│   └── utils/              # Helper functions (AI, scoring)
+│   ├── app.py
+│   ├── achievements.py
+│   ├── auth_service.py
+│   ├── notes.py
+│   ├── pomodoro.py
+│   ├── study_progress_tracker.py
+│   ├── tasks.py
+│   └── supabase_client.py
+│
 ├── frontend/
-│   ├── static/             # CSS, JS, and Images
-│   └── templates/          # HTML Templates
-├── requirements.txt        # Python dependencies
-├── .env.example            # Environment variables template
-└── README.md               # Project documentation
+│   ├── static/
+│   │   ├── main.js
+│   │   ├── achievements.js
+│   │   ├── style.css
+│   │   └── animations.css
+│   │
+│   └── templates/
+│       ├── index.html
+│       ├── notes.html
+│       ├── tasks.html
+│       ├── pomodoro.html
+│       ├── progress.html
+│       ├── progress_log.html
+│       ├── achievements.html
+│       ├── login.html
+│       └── signup.html
+│
+├── requirements.txt
+└── README.md
 ```
 
 ---
@@ -187,13 +287,31 @@ NovaMind/
 
 NovaMind provides a robust REST API for seamless frontend-backend communication.
 
-- **`POST /api/auth/login`**: Authenticate user and create session.
-- **`GET /api/notes`**: Retrieve user-specific notes.
-- **`POST /api/tasks`**: Create a new priority task.
-- **`POST /api/pomodoro/session`**: Log completed focus block and calculate score.
-- **`GET /api/achievements/status`**: Fetch user XP and unlocked badges.
+Authentication
+- POST /api/auth/signup
+- POST /api/auth/login
+- POST /api/auth/logout
 
-*(Refer to the full API documentation in the wiki for more details)*
+Study Progress
+- POST /api/progress/log
+
+Notes
+- GET /api/notes
+- POST /api/notes/add
+
+Tasks
+- POST /api/tasks/add
+- POST /api/tasks/toggle
+- DELETE /api/tasks/delete
+
+Pomodoro
+- POST /api/pomodoro/start
+- POST /api/pomodoro/complete
+
+Achievements
+- GET /api/achievements
+- GET /api/achievements/progress
+- GET /api/achievements/stats
 
 ---
 
@@ -233,11 +351,12 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 👨‍💻 Developer
 
 **Lakshya**  
-*Full Stack Developer & Open Source Contributor*
+B.Tech CSE Student • Open Source Contributor • Building in Public
+
+A first-year engineering student passionate about software development, productivity tools, and open-source collaboration. NovaMind is a project built to learn full-stack development, cloud databases, authentication systems, and scalable application design while solving real student productivity challenges.
 
 - GitHub: [@mrlakshya07](https://github.com/mrlakshya07)
-- Portfolio: [Your Portfolio Link](#)
-- LinkedIn: [Your LinkedIn Profile](#)
+- LinkedIn: [Lakshya](https://www.linkedin.com/in/lakshyarathi1/)
 
 ---
 
