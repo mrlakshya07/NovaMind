@@ -306,7 +306,8 @@ def complete_pomodoro():
     user = get_current_user()
     data = input_data()
     duration = data.get('duration_minutes', 0)
-    result = pomodoro.save_pomodoro_session(user['user_id'], duration)
+    focus_score = data.get('focus_score', 100)
+    result = pomodoro.save_pomodoro_session(user['user_id'], duration, focus_score)
     return jsonify(result)
 
 @app.route('/api/pomodoro/stats', methods=['GET'])

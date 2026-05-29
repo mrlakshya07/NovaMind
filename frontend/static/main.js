@@ -222,9 +222,30 @@ async function setupPomodoroPage() {
     const timerValue = document.getElementById("timer-value");
     const timerLabel = document.querySelector(".timer-label");
     let interval;
+    let hiddenSeconds = 0;
+    let hiddenStart = null;
+
+    document.addEventListener("visibilitychange", () => {
+
+        if (document.hidden) {
+
+            hiddenStart = Date.now();
+
+        } else if (hiddenStart) {
+
+            hiddenSeconds += Math.floor(
+                (Date.now() - hiddenStart) / 1000
+            );
+
+            hiddenStart = null;
+        }
+
+    });
 
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
+        hiddenSeconds = 0;
+        hiddenStart = null;
         const minutes = document.getElementById("minutes-input").value;
         const result = await fetchJson("/api/pomodoro/start", { minutes }, "POST");
         if (!result.success) {
@@ -246,10 +267,22 @@ async function setupPomodoroPage() {
                 timerLabel.textContent = "Session complete!";
                 timerValue.textContent = "00:00";
 
+                const totalSeconds =
+                    result.total_seconds;
+
+                const focusScore =
+                    Math.round(
+                        (
+                            (totalSeconds - hiddenSeconds)
+                            / totalSeconds
+                        ) * 100
+                    );
+
                 const saveResult = await fetchJson(
                     "/api/pomodoro/complete",
                     {
-                        duration_minutes: result.minutes
+                        duration_minutes: result.minutes,
+                        focus_score: focusScore
                     },
                     "POST"
                 );

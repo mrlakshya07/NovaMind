@@ -350,6 +350,19 @@ def _check_pomodoro_achievements(user_id):
             earned.append("twenty_five_pomodoros")
         if count >= 100:
             earned.append("hundred_pomodoros")
+        focus_response = (
+            supabase
+            .table("pomodoro_sessions")
+            .select("focus_score, focus_minutes")
+            .eq("user_id", user_id)
+            .gte("focus_score", 95)
+            .gte("focus_minutes", 25)
+            .limit(1)
+            .execute()
+        )
+
+        if focus_response.data:
+            earned.append("focus_perfectionist")
     
     except Exception as e:
         print(f"Error checking pomodoro achievements: {e}")
