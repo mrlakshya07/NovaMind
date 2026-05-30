@@ -224,6 +224,8 @@ async function setupPomodoroPage() {
     let interval;
     let hiddenSeconds = 0;
     let hiddenStart = null;
+    let isPaused = false;
+    let currentMinutes = 0;
 
     document.addEventListener("visibilitychange", () => {
 
@@ -231,13 +233,38 @@ async function setupPomodoroPage() {
 
             hiddenStart = Date.now();
 
-        } else if (hiddenStart) {
+            isPaused = true;
 
-            hiddenSeconds += Math.floor(
-                (Date.now() - hiddenStart) / 1000
+            timerLabel.textContent =
+                `Focus: ${result.minutes} min`;
+
+            showMessage(
+                messageId,
+                "Tab hidden. Timer paused.",
+                false
             );
 
-            hiddenStart = null;
+        } else {
+
+            if (hiddenStart) {
+
+                hiddenSeconds += Math.floor(
+                    (Date.now() - hiddenStart) / 1000
+                );
+
+                hiddenStart = null;
+            }
+
+            isPaused = false;
+
+            timerLabel.textContent =
+                `Focus: ${currentMinutes} min`;
+
+            showMessage(
+                messageId,
+                "Focus session resumed.",
+                true
+            );
         }
 
     });
@@ -248,17 +275,21 @@ async function setupPomodoroPage() {
         hiddenStart = null;
         const minutes = document.getElementById("minutes-input").value;
         const result = await fetchJson("/api/pomodoro/start", { minutes }, "POST");
+        currentMinutes = result.minutes;
         if (!result.success) {
             showMessage(messageId, result.message, false);
             return;
         }
         showMessage(messageId, `Focus session started for ${result.minutes} minutes!`);
         let remaining = result.total_seconds;
-        timerLabel.textContent = `Focus: ${result.minutes} min`;
+        timerLabel.textContent = `Focus: ${currentMinutes} min`;
         timerValue.textContent = formatTime(remaining);
 
         if (interval) clearInterval(interval);
         interval = setInterval(async () => {
+            if (isPaused) {
+                return;
+            }
             remaining -= 1;
             if (remaining <= 0) {
 
