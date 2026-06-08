@@ -32,7 +32,7 @@ def start_pomodoro(minutes):
         return {"success": False, "message": "Invalid input. Please enter a number."}
 
 
-def save_pomodoro_session(user_id, duration_minutes, focus_score=100):
+def save_pomodoro_session(user_id, duration_minutes, study_topic, focus_score=100):
     """
     Save a completed pomodoro session to the database.
     
@@ -59,7 +59,8 @@ def save_pomodoro_session(user_id, duration_minutes, focus_score=100):
                 "focus_minutes": duration_minutes,
                 "break_minutes": 5,
                 "completed": True,
-                "focus_score": focus_score
+                "focus_score": focus_score,
+                "study_topic": study_topic
             })
             .execute()
         )

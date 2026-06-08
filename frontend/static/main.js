@@ -273,8 +273,12 @@ async function setupPomodoroPage() {
         event.preventDefault();
         hiddenSeconds = 0;
         hiddenStart = null;
+        const studyTopic =
+            document.getElementById("topic-input")
+            .value
+            .trim();
         const minutes = document.getElementById("minutes-input").value;
-        const result = await fetchJson("/api/pomodoro/start", { minutes }, "POST");
+        const result = await fetchJson("/api/pomodoro/start", { minutes, study_topic: studyTopic }, "POST");
         currentMinutes = result.minutes;
         if (!result.success) {
             showMessage(messageId, result.message, false);
@@ -313,7 +317,8 @@ async function setupPomodoroPage() {
                     "/api/pomodoro/complete",
                     {
                         duration_minutes: result.minutes,
-                        focus_score: focusScore
+                        focus_score: focusScore,
+                        study_topic: studyTopic
                     },
                     "POST"
                 );
@@ -357,11 +362,22 @@ async function setupPomodoroPage() {
 async function setupProgressLogPage() {
     const form = document.getElementById("progress-form");
     const dateInput = document.getElementById("progress-date");
+    const subjectInput = document.getElementById("progress-subject");
+    const topicInput = document.getElementById("progress-topic");
     const hoursInput = document.getElementById("progress-hours");
 
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
-        const result = await fetchJson("/api/progress/log", { date: dateInput.value, hours: hoursInput.value }, "POST");
+        const result = await fetchJson(
+            "/api/progress/log",
+            {
+                date: dateInput.value,
+                subject: subjectInput.value,
+                topic: topicInput.value,
+                hours: hoursInput.value
+            },
+            "POST"
+        );
         if (result.achievements && result.achievements.length) {
 
             result.achievements.forEach(achievement => {
@@ -372,6 +388,8 @@ async function setupProgressLogPage() {
         showMessage("progress-log-message", result.message, result.success);
         if (result.success) {
             dateInput.value = "";
+            subjectInput.value = "";
+            topicInput.value = "";
             hoursInput.value = "";
         }
     });

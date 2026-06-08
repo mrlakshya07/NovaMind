@@ -32,8 +32,28 @@
         </div>
         <div class="panel form-panel">
             <form id="pomodoro-form" class="form-grid">
-                <input id="minutes-input" name="minutes" type="number" min="1" placeholder="25" value="25" required />
-                <button class="primary-btn" type="submit">Start Focus</button>
+
+                <input
+                    id="topic-input"
+                    type="text"
+                    placeholder="What are you going to study today?"
+                    required
+                />
+
+                <input
+                    id="minutes-input"
+                    name="minutes"
+                    type="number"
+                    min="1"
+                    placeholder="25"
+                    value="25"
+                    required
+                />
+
+                <button class="primary-btn" type="submit">
+                    Start Focus
+                </button>
+
             </form>
         </div>
         <div id="pomodoro-message" class="message-card hidden"></div>

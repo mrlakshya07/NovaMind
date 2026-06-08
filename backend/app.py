@@ -276,7 +276,13 @@ def api_get_progress():
 def api_log_progress():
     user = get_current_user()
     data = input_data()
-    result = progress.log_study_session(data.get('date', ''), data.get('hours', ''), user['user_id'])
+    result = progress.log_study_session(
+        data.get('date', ''),
+        data.get('hours', ''),
+        data.get('subject', ''),
+        data.get('topic', ''),
+        user['user_id']
+    )
     if result.get("success"):
 
         new_achievements = achievements.check_achievements(
@@ -307,7 +313,8 @@ def complete_pomodoro():
     data = input_data()
     duration = data.get('duration_minutes', 0)
     focus_score = data.get('focus_score', 100)
-    result = pomodoro.save_pomodoro_session(user['user_id'], duration, focus_score)
+    study_topic = data.get('study_topic','')
+    result = pomodoro.save_pomodoro_session(user['user_id'], duration, study_topic, focus_score)
     return jsonify(result)
 
 @app.route('/api/pomodoro/stats', methods=['GET'])

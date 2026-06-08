@@ -5,7 +5,7 @@ import base64
 from supabase_client import supabase
 from achievements import check_achievements
 
-def log_study_session(date_input=None, hours=None, user_id=None):
+def log_study_session(date_input=None, hours=None, subject=None, topic=None, user_id=None):
 
     if user_id is None:
         return {
@@ -26,6 +26,18 @@ def log_study_session(date_input=None, hours=None, user_id=None):
                 "success": False,
                 "message": "Invalid date format. Please use YYYY-MM-DD format."
             }
+        
+    if not subject:
+        return {
+            "success": False,
+            "message": "Subject is required."
+        }
+
+    if not topic:
+        return {
+            "success": False,
+            "message": "Topic is required."
+        }
 
     if hours is None:
         return {
@@ -56,7 +68,9 @@ def log_study_session(date_input=None, hours=None, user_id=None):
             .insert({
                 "user_id": user_id,
                 "session_date": current_date,
-                "hours_studied": hours
+                "hours_studied": hours,
+                "subject": subject,
+                "topic": topic
             })
             .execute()
         )
