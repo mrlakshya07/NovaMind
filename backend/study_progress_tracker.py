@@ -93,7 +93,7 @@ def log_study_session(date_input=None, hours=None, subject=None, topic=None, use
 def load_logged_data(user_id):
 
     if user_id is None:
-        return {}
+        return []
 
     try:
 
@@ -106,26 +106,26 @@ def load_logged_data(user_id):
             .execute()
         )
 
-        rows = response.data
+        rows = response.data or []
 
-        data = {}
+        sessions = []
 
         for row in rows:
 
-            date = row["session_date"]
+            sessions.append({
+                "date": row["session_date"],
+                "hours": float(row["hours_studied"]),
+                "subject": row.get("subject", ""),
+                "topic": row.get("topic", "")
+            })
 
-            hours = float(row["hours_studied"])
-
-            data.setdefault(date, []).append(hours)
-
-        return data
+        return sessions
 
     except Exception as e:
 
         print("Error loading data:", e)
 
-        return {}
-
+        return []
 
 def show_all_history(data):
     if not data:
