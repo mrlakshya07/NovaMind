@@ -249,21 +249,28 @@ def api_delete_task():
 @app.route('/api/progress', methods=['GET'])
 @login_required
 def api_get_progress():
+
     user = get_current_user()
-    data = progress.load_logged_data(user['user_id'])
 
-    plot_url = progress.plot_average_study_time(data)
+    sessions = progress.load_logged_data(
+        user['user_id']
+    )
 
-    sessions = []
+    plot_data = {}
 
-    for date in sorted(data.keys(), reverse=True):
+    for session in sessions:
 
-        for hours in data[date]:
+        date = session["date"]
+        hours = session["hours"]
 
-            sessions.append({
-                "date": date,
-                "hours": hours
-            })
+        plot_data.setdefault(
+            date,
+            []
+        ).append(hours)
+
+    plot_url = progress.plot_average_study_time(
+        plot_data
+    )
 
     return jsonify({
         'success': True,
