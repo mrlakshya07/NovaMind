@@ -426,9 +426,19 @@ async function loadProgressPage() {
                 return `
                     <div class="recent-session">
 
-                        <div>
-                            ${new Date(session.date)
-                                .toDateString()}
+                        <div class="session-info">
+
+                            <div>
+                                ${new Date(session.date)
+                                    .toDateString()}
+                            </div>
+
+                            <small>
+                                ${session.subject || "General"}
+                                •
+                                ${session.topic || "Study"}
+                            </small>
+
                         </div>
 
                         <span>
