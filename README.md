@@ -1,6 +1,6 @@
 <div align="center">
   <h1>🧠 NovaMind</h1>
-  <p><strong>AI-Powered Student Productivity Platform</strong></p>
+  <p><strong>AI-Assisted Student Productivity & Learning Platform</strong></p>
 
   <p>
     <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
@@ -20,6 +20,7 @@
 Most productivity apps track tasks.
 
 NovaMind tracks growth.
+NovaMind combines productivity, accountability, and active learning into a single platform.
 
 By combining:
 
@@ -41,9 +42,11 @@ NovaMind transforms studying into a rewarding and measurable experience.
 - **Data Isolation**: Fully isolated user data leveraging PostgreSQL Row Level Security.
 
 ### 📈 Study Progress Tracker
-- **Log Sessions**: Accurately log and record study sessions.
-- **Track Hours**: Measure total study hours over time.
-- **Historical Analytics**: Visualize and analyze historical study data.
+- **Study Session Logging**: Record study hours with date tracking.
+- **Subject & Topic Tracking**: Categorize study sessions by subject and topic.
+- **Most Studied Subject Analytics**: Automatically identify learning patterns.
+- **Most Studied Topic Analytics**: Discover where most study time is spent.
+- **Historical Analytics**: Visualize study consistency and progress over time.
 
 ### 📝 Smart Notes System
 - **Cloud Storage**: Secure note storage and retrieval using Supabase.
@@ -56,9 +59,12 @@ NovaMind transforms studying into a rewarding and measurable experience.
 - **Completion Tracking**: Seamlessly create, manage, and complete tasks.
 
 ### ⏱️ Pomodoro Focus System
-- **Real-Time Countdown**: Built-in, persistent timer for tracking focused study blocks.
-- **Focus Score**: Calculates session effectiveness.
-- **Statistics**: Analyze focus metrics and performance.
+- **Real-Time Countdown Timer**
+- **Auto-Pause on Tab Switch**
+- **Focus Score Tracking**
+- **Focus Integrity Monitoring**
+- **Session Statistics & Analytics**
+- **Achievement Integration**
 
 ---
 
@@ -70,7 +76,7 @@ NovaMind is built with a modern, scalable SaaS architecture:
 - **Backend**: Python with Flask, providing a modular and RESTful API.
 - **Database**: Supabase PostgreSQL for relational data, ensuring high performance and data integrity.
 - **Authentication**: Supabase Auth for seamless user identity management.
-- **AI / Data Processing**: `spaCy` for text analysis, `RapidFuzz` for string matching, and `Matplotlib` for dynamic analytics generation.
+- **Data Processing & Analytics**: `spaCy` for text analysis, `RapidFuzz` for string matching, and `Matplotlib` for dynamic analytics generation.
 
 ---
 
@@ -94,6 +100,16 @@ NovaMind is built with a modern, scalable SaaS architecture:
 
 ✅ Integrated Focus Score Analytics
 
+✅ Implemented Auto-Pause Focus Protection
+
+✅ Added Subject & Topic Based Study Tracking
+
+✅ Built Most Studied Subject Analytics
+
+✅ Built Most Studied Topic Analytics
+
+✅ Implemented Study Streak Achievement System
+
 ---
 
 ## 🗄️ Database Schema
@@ -101,7 +117,7 @@ NovaMind is built with a modern, scalable SaaS architecture:
 The system utilizes a structured relational database hosted on Supabase:
 
 - `users`: Core identity and profile settings.
-- `study_sessions`: Logs of all recorded study periods.
+- `study_sessions`: Study hours, subject tracking, topic tracking, and learning analytics.
 - `notes`: User-created study materials and text notes.
 - `tasks`: Action items, including priority and due date details.
 - `achievements`: User-unlocked milestones and XP logic.
@@ -185,6 +201,21 @@ unlock the exclusive:
 💎 Focus Perfectionist
 
 This encourages genuine deep work instead of simply leaving a timer running.
+
+### Auto Pause Protection
+
+NovaMind actively prevents passive timer farming.
+
+If a student leaves the study tab or switches to another browser tab during an active focus session, the Pomodoro timer is automatically paused until the user returns.
+
+Benefits:
+
+- Prevents artificial focus inflation
+- Encourages genuine deep work
+- Improves focus score accuracy
+- Reinforces accountability during study sessions
+
+This feature works alongside the Focus Integrity System to ensure study analytics reflect real productivity rather than timer activity.
 
 ---
 
@@ -311,16 +342,33 @@ Achievements
 
 ---
 
+## 🧠 Smart Learning Engine (Coming Soon)
+NovaMind is evolving beyond a productivity tracker into an intelligent learning companion.
+
+Planned capabilities include:
+
+- AI-powered post-study quizzes
+- Learning summary tracking
+- Quiz caching and reuse system
+- Personalized revision recommendations
+- Topic mastery analytics
+
+The goal is to reinforce active recall and long-term retention rather than simple time tracking.
+
+---
+
 ## 🗺️ Future Roadmap
 
 We are constantly improving NovaMind. Here's what's coming next:
 
-- [ ] **Global Leaderboard**: Compete with students worldwide.
-- [ ] **Study Topic Tracking**: Categorize and analyze time spent per subject.
-- [ ] **Auto Pause on Tab Switch**: Enforce focus by automatically pausing the timer.
-- [ ] **AI Quiz Generation**: Automatically generate quizzes from your notes.
-- [ ] **Focus Analytics Dashboard**: Advanced data visualization for study habits.
-- [ ] **Production Deployment**: Full deployment on modern cloud infrastructure.
+- [ ] AI-Powered Post-Pomodoro Quiz System
+- [ ] Learning Summary Tracking
+- [ ] Quiz Cache Engine
+- [ ] Global Leaderboard
+- [ ] Subject-Wise Analytics Dashboard
+- [ ] Topic-Wise Analytics Dashboard
+- [ ] Personalized Revision Recommendations
+- [ ] Production Deployment
 
 ---
 
