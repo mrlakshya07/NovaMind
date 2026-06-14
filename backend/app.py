@@ -258,6 +258,9 @@ def api_get_progress():
 
     plot_data = {}
 
+    subject_hours = {}
+    topic_hours = {}
+
     for session in sessions:
 
         date = session["date"]
@@ -268,14 +271,53 @@ def api_get_progress():
             []
         ).append(hours)
 
+        subject = (
+            session.get("subject")
+            or "General"
+        )
+
+        topic = (
+            session.get("topic")
+            or "Study"
+        )
+
+        subject_hours[subject] = (
+            subject_hours.get(subject, 0)
+            + hours
+        )
+
+        topic_hours[topic] = (
+            topic_hours.get(topic, 0)
+            + hours
+        )
+
     plot_url = progress.plot_average_study_time(
         plot_data
     )
 
+    most_studied_subject = None
+    most_studied_topic = None
+
+    if subject_hours:
+
+        most_studied_subject = max(
+            subject_hours,
+            key=subject_hours.get
+        )
+
+    if topic_hours:
+
+        most_studied_topic = max(
+            topic_hours,
+            key=topic_hours.get
+        )
+
     return jsonify({
         'success': True,
         'sessions': sessions,
-        'plot_url': plot_url
+        'plot_url': plot_url,
+        'most_studied_subject': most_studied_subject,
+        'most_studied_topic': most_studied_topic
     })
 
 @app.route('/api/progress/log', methods=['POST'])
