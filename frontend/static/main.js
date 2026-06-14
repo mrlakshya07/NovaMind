@@ -408,6 +408,31 @@ async function loadProgressPage() {
     } else {
         chartArea.innerHTML = `<p class="empty-state">No study data yet. Log a session to start tracking progress.</p>`;
     }
+    const mostSubject =
+        document.getElementById(
+            "most-subject"
+        );
+
+    const mostTopic =
+        document.getElementById(
+            "most-topic"
+        );
+
+    if (mostSubject) {
+
+        mostSubject.textContent =
+            result.most_studied_subject
+            || "No data";
+
+    }
+
+    if (mostTopic) {
+
+        mostTopic.textContent =
+            result.most_studied_topic
+            || "No data";
+
+    }
     const sessions =
         result.sessions || [];
 
